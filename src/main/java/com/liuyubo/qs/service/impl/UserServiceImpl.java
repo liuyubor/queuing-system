@@ -3,7 +3,6 @@ package com.liuyubo.qs.service.impl;
 import com.liuyubo.qs.db.DAO.UserDao;
 import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -11,8 +10,11 @@ import java.util.HashMap;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserDao userDao;
+    final UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public String searchUserPermissions(Integer userId) {
