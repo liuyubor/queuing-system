@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuyubo.qs.db.DAO.UserDao">
+    <select id="searchUserPermissions" parameterType="int" resultType="String">
+        SELECT DISTINCT p.permission_name
+        FROM tb_user u
+                 JOIN tb_role r ON JSON_CONTAINS(u.role, CAST(r.id AS CHAR))
+                 JOIN tb_permission p ON JSON_CONTAINS(r.permissions, CAST(p.id AS CHAR))
+        WHERE u.id = #{userId}
+    </select>
+    <select id="login" parameterType="HashMap" resultType="Integer">
+        SELECT id
+        FROM tb_user
+        WHERE username=#{username}
+          AND password=HEX(AES_ENCRYPT(#{password},#{username}))
+            LIMIT 1;
+    </select>
+    <update id="updatePassword" parameterType="HashMap">
+        UPDATE tb_user
+        SET password=HEX(AES_ENCRYPT(#{password},username))
+        WHERE id=#{userId}
+    </update>
+    <update id="update" parameterType="HashMap">
+        UPDATE tb_user
+        SET
+        <if test="username!=null and password!=null">
+            username = #{username},
+            password = HEX(AES_ENCRYPT(#{password},#{username})),
+        </if>
+        <if test="name!=null">
+            name = #{name},
+        </if>
+        <if test="sex!=null">
+            sex = #{sex},
+        </if>
+        <if test="tel!=null">
+            tel = #{tel},
+        </if>
+        <if test="email!=null">
+            email = #{email},
+        </if>
+        <if test="role!=null">
+            role = #{role},
+        </if>
+        <if test="root!=null">
+            root = #{root},
+        </if>
+        id=id
+        WHERE id=#{userId}
+    </update>
+    <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User" >
+        INSERT INTO tb_user
+        SET
+        <if test="username!=null">
+            username = #{username},
+        </if>
+        <if test="password!=null">
+            password = HEX(AES_ENCRYPT(#{password},#{username})),
+        </if>
+        <if test="nickname!=null">
+            nickname = #{nickname},
+        </if>
+        <if test="photo!=null">
+            photo = #{photo},
+        </if>
+        <if test="name!=null">
+            name = #{name},
+        </if>
+        <if test="sex!=null">
+            sex = #{sex},
+        </if>
+        <if test="tel!=null">
+            tel = #{tel},
+        </if>
+        <if test="email!=null">
+            email=#{email},
+        </if>
+        role = #{role},
+        <if test="root!=null">
+            root = #{root},
+        </if>
+        create_time = #{createTime}
+    </insert>
+</mapper>
