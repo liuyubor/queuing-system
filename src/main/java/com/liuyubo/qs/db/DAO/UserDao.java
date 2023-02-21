@@ -5,12 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.Set;
 
 @Mapper
 @Repository
 public interface UserDao {
 
-    String searchUserPermissions(Integer userId);
+    Set<String> searchUserPermissions(int userId);
 
     Integer login(HashMap param);
 

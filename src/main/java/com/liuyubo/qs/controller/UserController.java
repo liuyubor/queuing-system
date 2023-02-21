@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -39,7 +40,7 @@ public class UserController {
         R r = R.ok();
         if (userId != null){
             StpUtil.login(userId);
-            String permissions = userService.searchUserPermissions(userId);
+            Set<String> permissions = userService.searchUserPermissions(userId);
             String token = StpUtil.getTokenValue();
             r.put("result", true).put("permission",permissions).put("token",token);
         }else{

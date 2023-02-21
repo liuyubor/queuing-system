@@ -6,18 +6,19 @@ import com.liuyubo.qs.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    final UserDao userDao;
+    private final UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
     @Override
-    public String searchUserPermissions(Integer userId) {
+    public Set<String> searchUserPermissions(Integer userId) {
         return userDao.searchUserPermissions(userId);
     }
 

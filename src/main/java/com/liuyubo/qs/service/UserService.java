@@ -3,10 +3,11 @@ package com.liuyubo.qs.service;
 import com.liuyubo.qs.db.POJO.User;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public interface UserService {
 
-    String searchUserPermissions(Integer userId);
+    Set<String> searchUserPermissions(Integer userId);
 
     Integer login(HashMap param);
 
