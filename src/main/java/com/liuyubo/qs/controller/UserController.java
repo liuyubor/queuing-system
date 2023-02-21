@@ -15,7 +15,6 @@ import com.liuyubo.qs.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -26,8 +25,11 @@ import java.util.HashMap;
 @Tag(name = "UserController", description = "用户Web接口")
 public class UserController {
 
-    @Autowired
-    UserServiceImpl userService;
+    final UserServiceImpl userService;
+
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/login")
     @Operation(summary = "登录系统")
@@ -39,8 +41,7 @@ public class UserController {
             StpUtil.login(userId);
             String permissions = userService.searchUserPermissions(userId);
             String token = StpUtil.getTokenValue();
-            r.put("result", true).put("permission",permissions)
-                    .put("token",token);
+            r.put("result", true).put("permission",permissions).put("token",token);
         }else{
             r.put("result", false);
         }

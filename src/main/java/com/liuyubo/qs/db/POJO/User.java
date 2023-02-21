@@ -1,14 +1,10 @@
 package com.liuyubo.qs.db.POJO;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class User {
     private Integer userID;
     private String username;

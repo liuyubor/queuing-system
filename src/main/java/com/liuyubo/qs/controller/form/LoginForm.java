@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
+@Schema(description = "登陆表单")
 public class LoginForm {
 
     @NotBlank(message = "username不能为空")

@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-@Schema(description = "修改用户信息表单")
 @Data
+@Schema(description = "修改用户信息表单")
 public class UpdateUserForm {
 
     @NotNull(message = "userId不能为空")

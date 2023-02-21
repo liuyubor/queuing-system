@@ -11,9 +11,13 @@ import java.util.HashMap;
 public interface UserDao {
 
     String searchUserPermissions(Integer userId);
+
     Integer login(HashMap param);
+
     Integer UpdatePassword(HashMap param);
+
     Integer updateUser(HashMap param);
-    int insert(User user);
+
+    Integer insert(User user);
 
 }
