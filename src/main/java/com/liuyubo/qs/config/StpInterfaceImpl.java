@@ -2,7 +2,6 @@ package com.liuyubo.qs.config;
 
 import cn.dev33.satoken.stp.StpInterface;
 import com.liuyubo.qs.db.DAO.UserDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,8 +10,11 @@ import java.util.Set;
 
 @Component
 public class StpInterfaceImpl implements StpInterface {
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    public StpInterfaceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     /**
      * 返回一个用户所拥有的权限集合
