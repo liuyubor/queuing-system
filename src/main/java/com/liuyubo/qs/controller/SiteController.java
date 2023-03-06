@@ -1,6 +1,7 @@
 package com.liuyubo.qs.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.DeleteSiteByIdsForm;
 import com.liuyubo.qs.controller.form.SearchSiteByPageForm;
 import com.liuyubo.qs.db.POJO.Site;
@@ -35,9 +36,13 @@ public class SiteController {
 
     @GetMapping("/searchSiteByPage")
     public R searchSiteByPage(@Valid @RequestBody SearchSiteByPageForm form){
-        int page=form.getPage();
-        int length=form.getLength();
+        int page=form.getCurrentPage();
+        int length=form.getSize();
         int start=(page-1)*length;
+        HashMap param= JSONUtil.parse(form).toBean(HashMap.class);
+        param.put("start",start);
+        ArrayList<HashMap> sites = siteService.searchSiteByPage(param);
+        return R.ok().put("sites",sites);
     }
 
     @PostMapping("insert")

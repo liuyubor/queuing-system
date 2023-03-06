@@ -11,6 +11,10 @@ import java.util.HashMap;
 @Repository
 public interface SiteDao {
 
+    long searchSiteCount(HashMap param);
+
+    ArrayList<HashMap> searchUserByPage(HashMap param);
+
     ArrayList<HashMap> searchAllSite();
 
     Integer insert(Site site);
@@ -18,7 +22,5 @@ public interface SiteDao {
     Integer update(Site site);
 
     Integer deleteSiteByIds(Integer[] ids);
-
-    Long searchSiteCount(HashMap param);
 
 }

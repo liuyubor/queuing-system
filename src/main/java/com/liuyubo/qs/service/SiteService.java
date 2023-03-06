@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public interface SiteService {
 
+    ArrayList<HashMap> searchSiteByPage(HashMap param);
+
     ArrayList<HashMap> searchAllSite();
 
     Integer insert(Site site);

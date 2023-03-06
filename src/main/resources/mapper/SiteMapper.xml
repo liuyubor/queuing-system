@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.emos.api.db.dao.TbUserDao">
-
+<mapper namespace="com.liuyubo.qs.db.DAO.SiteDao">
+    <select id="searchSiteByPage" parameterType="HashMap" resultType="HashMap">
+        SELECT DISTINCT s.id,
+        s.name
+        FROM tb_site s
+        LIMIT #{start}, #{length}
+    </select>
+    <select id="searchSiteCount" parameterType="HashMap" resultType="long">
+        SELECT COUNT(*)
+        FROM tb_user
+    </select>
 </mapper>
