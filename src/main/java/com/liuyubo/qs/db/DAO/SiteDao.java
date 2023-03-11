@@ -13,7 +13,7 @@ public interface SiteDao {
 
     long searchSiteCount(HashMap param);
 
-    ArrayList<HashMap> searchUserByPage(HashMap param);
+    ArrayList<HashMap> searchSiteByPage(HashMap param);
 
     ArrayList<HashMap> searchAllSite();
 

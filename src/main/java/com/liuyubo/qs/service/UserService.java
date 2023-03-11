@@ -7,6 +7,8 @@ import java.util.Set;
 
 public interface UserService {
 
+    HashMap wechatLogin(String code);
+
     Set<String> searchUserPermissions(Integer userId);
 
     Integer login(HashMap param);
@@ -16,5 +18,6 @@ public interface UserService {
     Integer update(HashMap param);
 
     Integer insertUser(User user);
+
 
 }

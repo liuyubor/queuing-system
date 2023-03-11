@@ -34,11 +34,12 @@ public class SiteController {
         return R.ok().put("list", list);
     }
 
-    @GetMapping("/searchSiteByPage")
+    @PostMapping("/searchSiteByPage")
+    @Operation(summary = "分页查询核酸站点")
     public R searchSiteByPage(@Valid @RequestBody SearchSiteByPageForm form){
         int page=form.getCurrentPage();
-        int length=form.getSize();
-        int start=(page-1)*length;
+        int size=form.getSize();
+        int start=(page-1)*size;
         HashMap param= JSONUtil.parse(form).toBean(HashMap.class);
         param.put("start",start);
         ArrayList<HashMap> sites = siteService.searchSiteByPage(param);

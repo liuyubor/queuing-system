@@ -3,6 +3,7 @@ package com.liuyubo.qs.service.impl;
 import com.liuyubo.qs.db.DAO.UserDao;
 import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.UserService;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -11,10 +12,30 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
+
+    private final RedisTemplate redisTemplate;
     private final UserDao userDao;
 
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, RedisTemplate redisTemplate) {
         this.userDao = userDao;
+        this.redisTemplate = redisTemplate;
+    }
+
+    @Override
+    public HashMap wechatLogin(String code) {
+        HashMap map = new HashMap();
+        boolean result = false;
+        if (redisTemplate.hasKey(code)) {
+            String value = redisTemplate.opsForValue().get(code).toString();
+            if (!"false".equals(value)) {
+                result = true;
+                redisTemplate.delete(code);
+                int userId = Integer.parseInt(value);
+                map.put("userId", userId);
+            }
+        }
+        map.put("result", result);
+        return map;
     }
 
     @Override

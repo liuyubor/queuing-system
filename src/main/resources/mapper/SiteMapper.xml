@@ -5,7 +5,7 @@
         SELECT DISTINCT s.id,
         s.name
         FROM tb_site s
-        LIMIT #{start}, #{length}
+        LIMIT #{start}, #{size}
     </select>
     <select id="searchSiteCount" parameterType="HashMap" resultType="long">
         SELECT COUNT(*)

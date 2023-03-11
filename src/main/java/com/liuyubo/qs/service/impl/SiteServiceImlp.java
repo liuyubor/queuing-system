@@ -19,7 +19,7 @@ public class SiteServiceImlp implements SiteService {
 
     @Override
     public ArrayList<HashMap> searchSiteByPage(HashMap param) {
-        return siteDao.searchUserByPage(param);
+        return siteDao.searchSiteByPage(param);
     }
 
     @Override

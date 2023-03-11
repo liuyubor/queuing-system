@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class AuthUtil {
+public class BaiduAuthUtil {
 
     @Value("${baidu.cloud.aip.AppID}")
     private String AppID;
