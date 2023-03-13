@@ -1,13 +1,19 @@
 package com.liuyubo.qs.service.impl;
 
-import com.liuyubo.qs.db.DAO.SiteDao;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liuyubo.qs.db.POJO.Site;
+import com.liuyubo.qs.db.DAO.SiteMapper;
 import com.liuyubo.qs.service.SiteService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+* @author kdrsi
+* @description 针对表【tb_site】的数据库操作Service实现
+* @createDate 2023-03-13 21:40:59
+*/
 @Service
 public class SiteServiceImlp implements SiteService {
 
@@ -47,3 +53,7 @@ public class SiteServiceImlp implements SiteService {
         return siteDao.searchSiteCount(param);
     }
 }
+
+
+
+

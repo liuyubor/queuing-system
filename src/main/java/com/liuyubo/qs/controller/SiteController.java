@@ -4,7 +4,6 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.DeleteSiteByIdsForm;
 import com.liuyubo.qs.controller.form.SearchSiteByPageForm;
-import com.liuyubo.qs.db.POJO.Site;
 import com.liuyubo.qs.service.SiteService;
 import com.liuyubo.qs.utils.R;
 import io.swagger.v3.oas.annotations.Operation;

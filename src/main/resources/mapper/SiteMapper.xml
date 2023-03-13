@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.liuyubo.qs.db.DAO.SiteDao">
-    <select id="searchSiteByPage" parameterType="HashMap" resultType="HashMap">
-        SELECT DISTINCT s.id,
-        s.name,
-        s.description
-        FROM tb_site s
-        LIMIT #{start}, #{size}
-    </select>
-    <select id="searchSiteCount" parameterType="HashMap" resultType="long">
-        SELECT COUNT(*)
-        FROM tb_user
-    </select>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuyubo.qs.db.DAO.SiteMapper">
+
+    <resultMap id="BaseResultMap" type="com.liuyubo.qs.db.POJO.Site">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="point" column="point" jdbcType="OTHER"/>
+            <result property="days" column="days" jdbcType="INTEGER"/>
+            <result property="capacity" column="capacity" jdbcType="INTEGER"/>
+            <result property="appointmentCount" column="appointment_count" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="OTHER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        point,days,capacity,
+        appointment_count,status,time_slot
+    </sql>
 </mapper>

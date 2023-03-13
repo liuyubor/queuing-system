@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.liuyubo.qs.db.DAO.UserDao">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuyubo.qs.db.DAO.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.liuyubo.qs.db.POJO.User">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="photo" column="photo" jdbcType="VARCHAR"/>
+            <result property="tel" column="tel" jdbcType="CHAR"/>
+            <result property="role" column="role" jdbcType="OTHER"/>
+            <result property="root" column="root" jdbcType="TINYINT"/>
+            <result property="creatTime" column="creat_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,username,password,
+        nickname,photo,tel,
+        role,root,creat_time
+    </sql>
+
     <select id="searchUserPermissions" parameterType="int" resultType="String">
         SELECT DISTINCT p.permission_name
         FROM tb_user u
@@ -8,77 +29,19 @@
                  JOIN tb_permission p ON JSON_CONTAINS(r.permissions, CAST(p.id AS CHAR))
         WHERE u.id = #{userId}
     </select>
-    <select id="login" parameterType="HashMap" resultType="Integer">
-        SELECT id
-        FROM tb_user
-        WHERE username=#{username}
-          AND password=HEX(AES_ENCRYPT(#{password},#{username}))
-            LIMIT 1;
+    <select id="searchUserSummary" parameterType="int" resultType="HashMap">
+        SELECT u.open_id AS openId,
+               u.nickname,
+               u.username,
+               u.photo,
+               u.tel,
+               ( SELECT GROUP_CONCAT( role_name separator "，" ) FROM tb_role WHERE JSON_CONTAINS ( u.role, CONVERT ( id, CHAR ) ) ) AS roles
+        FROM tb_user u
+        WHERE u.id = #{userId}
     </select>
-    <update id="updatePassword" parameterType="HashMap">
-        UPDATE tb_user
-        SET password=HEX(AES_ENCRYPT(#{password},username))
-        WHERE id=#{userId}
-    </update>
-    <update id="update" parameterType="HashMap">
-        UPDATE tb_user
-        SET
-        <if test="username!=null and password!=null">
-            username = #{username},
-            password = HEX(AES_ENCRYPT(#{password},#{username})),
-        </if>
-        <if test="name!=null">
-            name = #{name},
-        </if>
-        <if test="sex!=null">
-            sex = #{sex},
-        </if>
-        <if test="tel!=null">
-            tel = #{tel},
-        </if>
-        <if test="email!=null">
-            email = #{email},
-        </if>
-        <if test="role!=null">
-            role = #{role},
-        </if>
-        <if test="root!=null">
-            root = #{root},
-        </if>
-        id=id
-        WHERE id=#{userId}
-    </update>
-    <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User" >
-        INSERT INTO tb_user
-        SET
-        <if test="username!=null">
-            username = #{username},
-        </if>
-        <if test="password!=null">
-            password = HEX(AES_ENCRYPT(#{password},#{username})),
-        </if>
-        <if test="nickname!=null">
-            nickname = #{nickname},
-        </if>
-        <if test="photo!=null">
-            photo = #{photo},
-        </if>
-        <if test="name!=null">
-            name = #{name},
-        </if>
-        <if test="sex!=null">
-            sex = #{sex},
-        </if>
-        <if test="tel!=null">
-            tel = #{tel},
-        </if>
-        <if test="email!=null">
-            email=#{email},
-        </if>
-        role = #{role},
-        <if test="root!=null">
-            root = #{root},
-        </if>
-        create_time = #{createTime}
-    </insert>
+    <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
+        SELECT id FROM tb_user WHERE open_id=#{openId} AND status = 1
+    </select>
+
+
 </mapper>

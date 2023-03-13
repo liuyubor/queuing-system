@@ -1,23 +1,17 @@
 package com.liuyubo.qs.service;
 
-import com.liuyubo.qs.db.POJO.User;
-
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+* @author kdrsi
+* @description 针对表【tb_user】的数据库操作Service
+* @createDate 2023-03-13 21:40:59
+*/
 public interface UserService {
 
     HashMap wechatLogin(String code);
-
     Set<String> searchUserPermissions(Integer userId);
-
-    Integer login(HashMap param);
-
-    Integer updatePassword(HashMap param);
-
-    Integer update(HashMap param);
-
-    Integer insertUser(User user);
-
+    HashMap searchUserSummary(int userId);
 
 }

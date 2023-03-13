@@ -1,22 +1,19 @@
 package com.liuyubo.qs.service.impl;
 
-import com.liuyubo.qs.db.DAO.PermissionDao;
-import com.liuyubo.qs.service.PermissionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Service
-public class PermissionServiceImpl implements PermissionService {
-
-    @Autowired
-    private PermissionDao permissionDao;
-
-    @Override
-    public ArrayList<HashMap> searchAllPermission() {
-        ArrayList<HashMap> list = permissionDao.searchAllPermission();
-        return list;
-    }
+/**
+* @author kdrsi
+* @description 针对表【tb_permission】的数据库操作Service实现
+* @createDate 2023-03-13 21:40:59
+*/
+public interface PermissionService {
+    public ArrayList<HashMap> searchAllPermission();
 }
+
+
+
+

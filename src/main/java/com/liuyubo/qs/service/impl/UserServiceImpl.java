@@ -1,7 +1,6 @@
 package com.liuyubo.qs.service.impl;
 
-import com.liuyubo.qs.db.DAO.UserDao;
-import com.liuyubo.qs.db.POJO.User;
+import com.liuyubo.qs.db.DAO.UserMapper;
 import com.liuyubo.qs.service.UserService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -9,15 +8,20 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+* @author kdrsi
+* @description 针对表【tb_user】的数据库操作Service实现
+* @createDate 2023-03-13 21:40:59
+*/
 @Service
 public class UserServiceImpl implements UserService {
 
 
     private final RedisTemplate redisTemplate;
-    private final UserDao userDao;
+    private final UserMapper userMapper;
 
-    public UserServiceImpl(UserDao userDao, RedisTemplate redisTemplate) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserMapper userMapper, RedisTemplate redisTemplate) {
+        this.userMapper = userMapper;
         this.redisTemplate = redisTemplate;
     }
 
@@ -25,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public HashMap wechatLogin(String code) {
         HashMap map = new HashMap();
         boolean result = false;
-        if (redisTemplate.hasKey(code)) {
+        if (Boolean.TRUE.equals(redisTemplate.hasKey(code))) {
             String value = redisTemplate.opsForValue().get(code).toString();
             if (!"false".equals(value)) {
                 result = true;
@@ -40,26 +44,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<String> searchUserPermissions(Integer userId) {
-        return userDao.searchUserPermissions(userId);
+        return userMapper.searchUserPermissions(userId);
     }
 
     @Override
-    public Integer login(HashMap param) {
-        return userDao.login(param);
+    public HashMap searchUserSummary(int userId) {
+        return userMapper.searchUserSummary(userId);
     }
 
-    @Override
-    public Integer updatePassword(HashMap param) {
-        return userDao.UpdatePassword(param);
-    }
 
-    @Override
-    public Integer update(HashMap param) {
-        return userDao.updateUser(param);
-    }
-
-    @Override
-    public Integer insertUser(User user) {
-        return userDao.insert(user);
-    }
 }
+
+
+
+

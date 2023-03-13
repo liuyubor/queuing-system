@@ -1,7 +1,7 @@
 package com.liuyubo.qs.config;
 
 import cn.dev33.satoken.stp.StpInterface;
-import com.liuyubo.qs.db.DAO.UserDao;
+import com.liuyubo.qs.db.DAO.UserMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.Set;
 
 @Component
 public class StpInterfaceImpl implements StpInterface {
-    private final UserDao userDao;
+    private final UserMapper userMapper;
 
-    public StpInterfaceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public StpInterfaceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     /**
@@ -22,7 +22,7 @@ public class StpInterfaceImpl implements StpInterface {
     @Override
     public List<String> getPermissionList(Object loginId, String loginKey) {
         int userId = Integer.parseInt(loginId.toString());
-        Set<String> permissions = userDao.searchUserPermissions(userId);
+        Set<String> permissions = userMapper.searchUserPermissions(userId);
         ArrayList list = new ArrayList();
         list.addAll(permissions);
         return list;

@@ -5,8 +5,9 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
-@Schema(description = "添加用户表单")
-public class InsertUserForm {
+@Schema(description = "注册表单")
+public class RegisterForm {
+
     @NotBlank(message = "username不能为空")
     @Pattern(regexp = "^[a-zA-Z0-9]{5,32}$", message = "username内容不正确")
     @Schema(description = "用户名")
