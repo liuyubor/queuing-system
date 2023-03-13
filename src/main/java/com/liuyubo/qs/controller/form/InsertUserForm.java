@@ -8,12 +8,12 @@ import lombok.Data;
 @Schema(description = "添加用户表单")
 public class InsertUserForm {
     @NotBlank(message = "username不能为空")
-    @Pattern(regexp = "^[a-zA-Z0-9]{5,20}$", message = "username内容不正确")
+    @Pattern(regexp = "^[a-zA-Z0-9]{5,32}$", message = "username内容不正确")
     @Schema(description = "用户名")
     private String username;
 
     @NotBlank(message = "password不能为空")
-    @Pattern(regexp = "^[a-zA-Z0-9]{6,20}$", message = "password内容不正确")
+    @Pattern(regexp = "^[a-zA-Z0-9]{6,32}$", message = "password内容不正确")
     @Schema(description = "密码")
     private String password;
 
@@ -22,22 +22,8 @@ public class InsertUserForm {
     @Schema(description = "姓名")
     private String name;
 
-    @NotBlank(message = "sex不能为空")
-    @Pattern(regexp = "^男$|^女$", message = "sex内容不正确")
-    @Schema(description = "性别")
-    private String sex;
-
     @NotBlank(message = "tel不能为空")
     @Pattern(regexp = "^1\\d{10}$", message = "tel内容不正确")
     @Schema(description = "电话")
     private String tel;
-
-    @NotBlank(message = "email内容不正确")
-    @Email(message = "email内容不正确")
-    @Schema(description = "邮箱")
-    private String email;
-
-    @NotEmpty(message = "role不能为空")
-    @Schema(description = "角色")
-    private Integer[] role;
 }

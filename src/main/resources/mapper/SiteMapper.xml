@@ -3,7 +3,8 @@
 <mapper namespace="com.liuyubo.qs.db.DAO.SiteDao">
     <select id="searchSiteByPage" parameterType="HashMap" resultType="HashMap">
         SELECT DISTINCT s.id,
-        s.name
+        s.name,
+        s.description
         FROM tb_site s
         LIMIT #{start}, #{size}
     </select>

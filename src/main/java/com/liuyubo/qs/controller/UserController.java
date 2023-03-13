@@ -108,11 +108,12 @@ public class UserController {
     }
 
     @PostMapping("insert")
-    @SaCheckPermission(value = {"ROOT", "USER:INSERT"}, mode = SaMode.OR)
+//    @SaCheckPermission(value = {"ROOT", "USER:INSERT"}, mode = SaMode.OR)
     @Operation(summary = "注册系统")
     public R register(@Valid @RequestBody InsertUserForm form){
         User user = JSONUtil.parse(form).toBean(User.class);
-        user.setRole(JSONUtil.parseArray(form.getRole()).toString());
+//        user.setRole(JSONUtil.parseArray(form.getRole()).toString());
+        user.setRole("用户");
         user.setCreateTime(new Date());
         int rows=userService.insertUser(user);
         return R.ok().put("rows",rows);

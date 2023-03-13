@@ -11,11 +11,7 @@ public class User {
     private String password;
     private String nickname;
     private String photo;
-    private String name;
-    private Object sex;
     private String tel;
-    private String email;
     private Object role;
-    private Boolean root;
     private Date createTime;
 }
