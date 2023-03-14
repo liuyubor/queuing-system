@@ -1,5 +1,6 @@
 package com.liuyubo.qs.service.impl;
 
+import com.liuyubo.qs.db.DAO.MonitorMapper;
 import com.liuyubo.qs.service.MonitorService;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +15,31 @@ import java.util.HashMap;
 @Service
 public class MonitorServiceImpl implements MonitorService {
 
-    private final MonitorDao monitorDao;
+    private final MonitorMapper monitorMapper;
 
-    public MonitorServiceImpl(MonitorDao monitorDao) {
-        this.monitorDao = monitorDao;
+    public MonitorServiceImpl(MonitorMapper monitorMapper) {
+        this.monitorMapper = monitorMapper;
     }
 
     public Integer insert(HashMap param){
-        return monitorDao.insert(param);
+        return monitorMapper.insert(param);
     }
 
     @Override
     public Integer deleteByIds(HashMap param) {
-        return monitorDao.deleteByIds(param);
+        return monitorMapper.deleteByIds(param);
     }
 
     @Override
     public Integer update(HashMap param) {
-        return monitorDao.update(param);
+        return monitorMapper.update(param);
     }
 
     @Override
     public ArrayList<HashMap> searchAllMonitor() {
-        return monitorDao.searchAllMonitor();
+        return monitorMapper.searchAllMonitor();
     }
+
 }
 
 

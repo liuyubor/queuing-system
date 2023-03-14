@@ -1,7 +1,11 @@
 package com.liuyubo.qs.db.DAO;
 
+import com.liuyubo.qs.db.POJO.Site;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * @author kdrsi
@@ -13,6 +17,22 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface SiteMapper {
 
+
+    ArrayList<HashMap> searchAllSite();
+
+    ArrayList<HashMap> searchSiteByPage(HashMap param);
+
+    Integer insert(Site site);
+
+    Integer update(Site site);
+
+    Integer deleteSiteByIds(Integer[] ids);
+
+    Long searchSiteCount(HashMap param);
+
+    ArrayList<String> searchTimeById(int[] times);
+
+    String searchTimeSlotById(Integer id);
 }
 
 

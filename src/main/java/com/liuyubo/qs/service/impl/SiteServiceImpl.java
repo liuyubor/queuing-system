@@ -1,12 +1,12 @@
 package com.liuyubo.qs.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liuyubo.qs.db.POJO.Site;
 import com.liuyubo.qs.db.DAO.SiteMapper;
+import com.liuyubo.qs.db.POJO.Site;
 import com.liuyubo.qs.service.SiteService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -15,42 +15,53 @@ import java.util.HashMap;
 * @createDate 2023-03-13 21:40:59
 */
 @Service
-public class SiteServiceImlp implements SiteService {
+public class SiteServiceImpl implements SiteService {
 
-    final SiteDao siteDao;
+    final SiteMapper siteMapper;
 
-    public SiteServiceImlp(SiteDao siteDao) {
-        this.siteDao = siteDao;
+    public SiteServiceImpl(SiteMapper siteMapper) {
+        this.siteMapper = siteMapper;
     }
 
     @Override
     public ArrayList<HashMap> searchSiteByPage(HashMap param) {
-        return siteDao.searchSiteByPage(param);
+        return siteMapper.searchSiteByPage(param);
     }
 
     @Override
     public ArrayList<HashMap> searchAllSite() {
-        return siteDao.searchAllSite();
+        return siteMapper.searchAllSite();
     }
 
     @Override
     public Integer insert(Site site) {
-        return siteDao.insert(site);
+        return siteMapper.insert(site);
     }
 
     @Override
     public Integer update(Site site) {
-        return siteDao.update(site);
+        return siteMapper.update(site);
     }
 
     @Override
     public Integer deleteSiteByIds(Integer[] ids) {
-        return siteDao.deleteSiteByIds(ids);
+        return siteMapper.deleteSiteByIds(ids);
     }
 
     @Override
     public Long searchSiteCount(HashMap param) {
-        return siteDao.searchSiteCount(param);
+        return siteMapper.searchSiteCount(param);
+    }
+
+    @Override
+    public ArrayList<String> searchTimeById(Integer id) {
+        String timeSlot = siteMapper.searchTimeSlotById(id);
+        String[] times = timeSlot.split(",");
+        int[] intArray = Arrays.stream(times)
+                .map(Integer::parseInt)
+                .mapToInt(Integer::intValue)
+                .toArray();
+        return siteMapper.searchTimeById(intArray);
     }
 }
 

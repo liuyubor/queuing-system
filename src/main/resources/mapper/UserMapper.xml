@@ -6,20 +6,20 @@
 
     <resultMap id="BaseResultMap" type="com.liuyubo.qs.db.POJO.User">
             <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="openId" column="openid" jdbcType="VARCHAR"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="photo" column="photo" jdbcType="VARCHAR"/>
             <result property="tel" column="tel" jdbcType="CHAR"/>
-            <result property="role" column="role" jdbcType="OTHER"/>
+            <result property="role" column="role" jdbcType="TINYINT"/>
             <result property="root" column="root" jdbcType="TINYINT"/>
-            <result property="creatTime" column="creat_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,username,password,
+        id,openid,username,password,
         nickname,photo,tel,
-        role,root,creat_time
+        role,root
     </sql>
     <select id="searchUserPermissions" parameterType="int" resultType="String">
         SELECT DISTINCT p.permission_name
@@ -29,7 +29,7 @@
         WHERE u.id = #{userId}
     </select>
     <select id="searchUserSummary" parameterType="int" resultType="HashMap">
-        SELECT u.open_id AS openId,
+        SELECT u.openid AS openId,
                u.nickname,
                u.username,
                u.photo,
@@ -44,14 +44,14 @@
     <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
         INSERT INTO tb_user
         SET
+        <if test="openId!=null">
+            openid = #{openId},
+        </if>
         <if test="username!=null">
             username = #{username},
         </if>
         <if test="password!=null">
             password = HEX(AES_ENCRYPT(#{password},#{username})),
-        </if>
-        <if test="openId!=null">
-            open_id = #{openId},
         </if>
         <if test="nickname!=null">
             nickname = #{nickname},
@@ -62,13 +62,12 @@
         <if test="tel!=null">
             tel = #{tel},
         </if>
-        <if test="tole!=null">
+        <if test="role!=null">
             role = #{role},
         </if>
         <if test="root!=null">
-            root = #{root},
+            root = #{root}
         </if>
-        create_time = #{createTime}
     </insert>
     <update id="updatePassword" parameterType="HashMap">
         UPDATE tb_user

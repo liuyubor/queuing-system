@@ -2,6 +2,7 @@ package com.liuyubo.qs.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.annotation.SaMode;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.json.JSONUtil;
@@ -23,7 +24,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.SocketTimeoutException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeMap;
@@ -65,6 +65,7 @@ public class UserController {
 
     @PostMapping("/code2uuid")
     @Operation(summary = "转换登录code")
+    @SaIgnore
     public R code2uuid(@Valid @RequestBody WechatLoginForm form) {
         String url = login_url + "?js_code=" + form.getCode() +
                 "&appid=" + appid + "&secret=" + secret + "&grant_type=" + grant_type;
@@ -85,6 +86,7 @@ public class UserController {
 
     @PostMapping("/wechatLogin")
     @Operation(summary = "微信小程序登陆")
+    @SaIgnore
     public R wechatLogin(@Valid @RequestBody WechatLoginForm form) {
         HashMap map = userService.wechatLogin(form.getCode());
         boolean result = (boolean) map.get("result");
@@ -102,6 +104,7 @@ public class UserController {
 
     @GetMapping("/upload")
     @Operation(summary = "上传头像")
+    @SaIgnore
     public R upload() {
         TreeMap<String, Object> config = new TreeMap<String, Object>();
         try {
@@ -133,11 +136,11 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "注册")
+    @SaIgnore
     public R register(@Valid @RequestBody RegisterForm form) {
         User user = JSONUtil.parse(form).toBean(User.class);
         user.setRole(1);
         user.setRoot(0);
-        user.setCreatTime(new Date());
         Integer rows = userService.insert(user);
         return R.ok().put("rows",rows);
     }

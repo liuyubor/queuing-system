@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class BodyTrack {
@@ -26,7 +27,7 @@ public class BodyTrack {
             String filePath = "[文件路径]";
             byte[] imgData = FileUtil.readFileByBytes(filePath);
             String imgStr = Base64Util.encode(imgData);
-            String imgParam = URLEncoder.encode(imgStr, "UTF-8");
+            String imgParam = URLEncoder.encode(imgStr, StandardCharsets.UTF_8);
 
             String param = "image=" + imgParam;
 

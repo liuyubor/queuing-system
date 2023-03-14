@@ -9,5 +9,5 @@ import java.util.HashMap;
 * @createDate 2023-03-13 21:40:59
 */
 public interface PermissionService {
-    public ArrayList<HashMap> searchAllPermission();
+    ArrayList<HashMap> searchAllPermission();
 }

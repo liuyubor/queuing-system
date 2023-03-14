@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 
@@ -20,7 +19,7 @@ public class User implements Serializable {
     /**
      * opeid
      */
-    private Integer openid;
+    private String openId;
 
     /**
      * 姓名
@@ -56,11 +55,6 @@ public class User implements Serializable {
      * 是否是管理员
      */
     private Integer root;
-
-    /**
-     * 创建时间
-     */
-    private Date creatTime;
 
     @Serial
     private static final long serialVersionUID = 1L;

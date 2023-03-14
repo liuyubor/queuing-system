@@ -12,7 +12,9 @@ import java.util.HashMap;
 */
 @Service
 public class PermissionServiceImpl implements PermissionService {
-    public ArrayList<HashMap> searchAllPermission();
+    public ArrayList<HashMap> searchAllPermission() {
+        return null;
+    }
 }
 
 
