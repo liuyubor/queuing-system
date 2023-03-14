@@ -181,7 +181,7 @@ public class UserController {
         param.put("userId",userId);
         int rows = userService.update(param);
         if (rows == 1) {
-            StpUtil.logout(form.getUserId());
+            StpUtil.logout(userId);
         }
         return R.ok().put("rows", rows);
     }
