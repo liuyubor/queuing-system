@@ -18,6 +18,11 @@ public class User implements Serializable {
     private Integer id;
 
     /**
+     * opeid
+     */
+    private Integer openid;
+
+    /**
      * 姓名
      */
     private String username;
@@ -45,7 +50,7 @@ public class User implements Serializable {
     /**
      * 角色
      */
-    private Object role;
+    private Integer role;
 
     /**
      * 是否是管理员

@@ -8,6 +8,11 @@ import lombok.Data;
 @Schema(description = "注册表单")
 public class RegisterForm {
 
+    @NotBlank(message = "avatar不能为空")
+    @Schema(description = "用户头像")
+    private String avatar;
+
+
     @NotBlank(message = "username不能为空")
     @Pattern(regexp = "^[a-zA-Z0-9]{5,32}$", message = "username内容不正确")
     @Schema(description = "用户名")

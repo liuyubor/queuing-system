@@ -1,6 +1,7 @@
 package com.liuyubo.qs.service.impl;
 
 import com.liuyubo.qs.db.DAO.UserMapper;
+import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.UserService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public HashMap searchUserSummary(int userId) {
         return userMapper.searchUserSummary(userId);
+    }
+
+    @Override
+    public Integer insert(User user) {
+        return userMapper.insert(user);
+    }
+
+    @Override
+    public Integer updatePassword(HashMap param) {
+        return userMapper.updatePassword(param);
+    }
+
+    @Override
+    public Integer update(HashMap param) {
+        return userMapper.update(param);
     }
 
 

@@ -1,5 +1,7 @@
 package com.liuyubo.qs.service;
 
+import com.liuyubo.qs.db.POJO.User;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -11,7 +13,14 @@ import java.util.Set;
 public interface UserService {
 
     HashMap wechatLogin(String code);
+
     Set<String> searchUserPermissions(Integer userId);
+
     HashMap searchUserSummary(int userId);
 
+    Integer insert(User user);
+
+    Integer updatePassword(HashMap param);
+
+    Integer update(HashMap param);
 }

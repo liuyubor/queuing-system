@@ -1,5 +1,6 @@
 package com.liuyubo.qs.db.DAO;
 
+import com.liuyubo.qs.db.POJO.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,11 @@ public interface UserMapper {
 
     HashMap searchUserSummary(int userId);
 
+    Integer insert(User user);
 
+    Integer updatePassword(HashMap param);
+
+    Integer update(HashMap param);
 }
 
 

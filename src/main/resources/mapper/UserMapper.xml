@@ -21,7 +21,6 @@
         nickname,photo,tel,
         role,root,creat_time
     </sql>
-
     <select id="searchUserPermissions" parameterType="int" resultType="String">
         SELECT DISTINCT p.permission_name
         FROM tb_user u
@@ -42,6 +41,48 @@
     <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
         SELECT id FROM tb_user WHERE open_id=#{openId} AND status = 1
     </select>
+    <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
+        INSERT INTO tb_user
+        SET
+        <if test="username!=null">
+            username = #{username},
+        </if>
+        <if test="password!=null">
+            password = HEX(AES_ENCRYPT(#{password},#{username})),
+        </if>
+        <if test="openId!=null">
+            open_id = #{openId},
+        </if>
+        <if test="nickname!=null">
+            nickname = #{nickname},
+        </if>
+        <if test="photo!=null">
+            photo = #{photo},
+        </if>
+        <if test="tel!=null">
+            tel = #{tel},
+        </if>
+        <if test="tole!=null">
+            role = #{role},
+        </if>
+        <if test="root!=null">
+            root = #{root},
+        </if>
+        create_time = #{createTime}
+    </insert>
+    <update id="updatePassword" parameterType="HashMap">
+        UPDATE tb_user
+        SET password=HEX(AES_ENCRYPT(#{password},username))
+        WHERE id=#{userId}
+    </update>
+    <update id="update" parameterType="HashMap">
+        UPDATE tb_user
+        SET
+            username=#{username},
+            nickname=#{nickname},
+            tel=#{tel}
+        WHERE id=#{userId}
+    </update>
 
 
 </mapper>

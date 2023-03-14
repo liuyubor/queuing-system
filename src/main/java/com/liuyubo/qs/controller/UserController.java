@@ -9,6 +9,7 @@ import com.liuyubo.qs.controller.form.RegisterForm;
 import com.liuyubo.qs.controller.form.UpdatePasswordForm;
 import com.liuyubo.qs.controller.form.UpdateUserForm;
 import com.liuyubo.qs.controller.form.WechatLoginForm;
+import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.impl.UserServiceImpl;
 import com.liuyubo.qs.utils.R;
 import com.tencent.cloud.CosStsClient;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.SocketTimeoutException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeMap;
@@ -64,8 +66,8 @@ public class UserController {
     @PostMapping("/code2uuid")
     @Operation(summary = "转换登录code")
     public R code2uuid(@Valid @RequestBody WechatLoginForm form) {
-        String url = login_url + "?js_code="+form.getCode()+
-                "&appid="+appid+"&secret="+secret+"&grant_type="+grant_type;
+        String url = login_url + "?js_code=" + form.getCode() +
+                "&appid=" + appid + "&secret=" + secret + "&grant_type=" + grant_type;
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         Request request = new Request.Builder().url(url).get().build();
 
@@ -92,34 +94,23 @@ public class UserController {
             Set<String> permissions = userService.searchUserPermissions(userId);
             map.remove("userId");
             map.put("permissions", permissions);
-            String token=StpUtil.getTokenValue();
-            map.put("token",token);
+            String token = StpUtil.getTokenValue();
+            map.put("token", token);
         }
         return R.ok(map);
     }
 
     @GetMapping("/upload")
     @Operation(summary = "上传头像")
-    public R upload(){
+    public R upload() {
         TreeMap<String, Object> config = new TreeMap<String, Object>();
         try {
             config.put("secretId", secretId);
             config.put("secretKey", secretKey);
             config.put("bucket", bucket);
             config.put("region", region);
-
-            // 这里改成允许的路径前缀，可以根据自己网站的用户登录态判断允许上传的具体路径
-            // 列举几种典型的前缀授权场景：
-            // 1、允许访问所有对象："*"
-            // 2、允许访问指定的对象："a/a1.txt", "b/b1.txt"
-            // 3、允许访问指定前缀的对象："a*", "a/*", "b/*"
-            // 如果填写了“*”，将允许用户访问所有资源；除非业务需要，否则请按照最小权限原则授予用户相应的访问权限范围。
-            config.put("allowPrefixes", new String[] {
-                    "*"
-            });
-
-            // 密钥的权限列表。必须在这里指定本次临时密钥所需要的权限。
-            String[] allowActions = new String[] {
+            config.put("allowPrefixes", new String[]{"*"});
+            String[] allowActions = new String[]{
                     // 简单上传
                     "name/cos:PutObject",
                     // 表单上传、小程序上传
@@ -133,7 +124,7 @@ public class UserController {
             };
             config.put("allowActions", allowActions);
             com.tencent.cloud.Response response = CosStsClient.getCredential(config);
-            return R.ok().put("data",response);
+            return R.ok().put("data", response);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,8 +133,13 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "注册")
-    public R register(@Valid @RequestBody RegisterForm form){
-        HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
+    public R register(@Valid @RequestBody RegisterForm form) {
+        User user = JSONUtil.parse(form).toBean(User.class);
+        user.setRole(1);
+        user.setRoot(0);
+        user.setCreatTime(new Date());
+        Integer rows = userService.insert(user);
+        return R.ok().put("rows",rows);
     }
 
     @GetMapping("/loadUserInfo")
@@ -157,7 +153,7 @@ public class UserController {
 
     @GetMapping("/logout")
     @Operation(summary = "退出系统")
-    public R logout(){
+    public R logout() {
         StpUtil.logout();
         return R.ok();
     }
@@ -165,30 +161,30 @@ public class UserController {
     @PostMapping("/updatePassword")
     @SaCheckLogin
     @Operation(summary = "修改密码")
-    public R updatePassword(@Valid @RequestBody UpdatePasswordForm form){
-        int userId=StpUtil.getLoginIdAsInt();
-        HashMap param=new HashMap(){{
-            put("userId",userId);
-            put("password",form.getPassword());
+    public R updatePassword(@Valid @RequestBody UpdatePasswordForm form) {
+        int userId = StpUtil.getLoginIdAsInt();
+        HashMap param = new HashMap() {{
+            put("userId", userId);
+            put("password", form.getPassword());
         }};
-        int rows=userService.updatePassword(param);
-        return R.ok().put("rows",rows);
+        int rows = userService.updatePassword(param);
+        return R.ok().put("rows", rows);
     }
 
 
     @PostMapping("/update")
     @SaCheckPermission(value = {"ROOT", "USER:UPDATE"}, mode = SaMode.OR)
     @Operation(summary = "修改用户")
-    public R update(@Valid @RequestBody UpdateUserForm form){
-        HashMap param=JSONUtil.parse(form).toBean(HashMap.class);
-        param.replace("role",JSONUtil.parseArray(form.getRole()).toString());
-        int rows=userService.update(param);
-        if(rows==1){
+    public R update(@Valid @RequestBody UpdateUserForm form) {
+        HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
+        int userId = StpUtil.getLoginIdAsInt();
+        param.put("userId",userId);
+        int rows = userService.update(param);
+        if (rows == 1) {
             StpUtil.logout(form.getUserId());
         }
-        return R.ok().put("rows",rows);
+        return R.ok().put("rows", rows);
     }
-
 
 
 }
