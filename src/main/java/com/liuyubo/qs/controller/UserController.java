@@ -65,7 +65,6 @@ public class UserController {
 
     @PostMapping("/code2uuid")
     @Operation(summary = "转换登录code")
-    @SaIgnore
     public R code2uuid(@Valid @RequestBody WechatLoginForm form) {
         String url = login_url + "?js_code=" + form.getCode() +
                 "&appid=" + appid + "&secret=" + secret + "&grant_type=" + grant_type;
@@ -86,25 +85,23 @@ public class UserController {
 
     @PostMapping("/wechatLogin")
     @Operation(summary = "微信小程序登陆")
-    @SaIgnore
     public R wechatLogin(@Valid @RequestBody WechatLoginForm form) {
         HashMap map = userService.wechatLogin(form.getCode());
         boolean result = (boolean) map.get("result");
-        if (result) {
+        int id = userService.searchIdByOpenId(form.getCode());
+        if (true) {
             int userId = (int) map.get("userId");
-            StpUtil.login(userId);
             Set<String> permissions = userService.searchUserPermissions(userId);
             map.remove("userId");
             map.put("permissions", permissions);
-            String token = StpUtil.getTokenValue();
-            map.put("token", token);
         }
+
+        map.put("id",id);
         return R.ok(map);
     }
 
     @GetMapping("/upload")
     @Operation(summary = "上传头像")
-    @SaIgnore
     public R upload() {
         TreeMap<String, Object> config = new TreeMap<String, Object>();
         try {
@@ -136,7 +133,6 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "注册")
-    @SaIgnore
     public R register(@Valid @RequestBody RegisterForm form) {
         User user = JSONUtil.parse(form).toBean(User.class);
         user.setRole(1);
@@ -147,27 +143,15 @@ public class UserController {
 
     @GetMapping("/loadUserInfo")
     @Operation(summary = "登陆成功后加载用户的基本信息")
-    @SaCheckLogin
     public R loadUserInfo() {
-        int userId = StpUtil.getLoginIdAsInt();
         HashMap summary = userService.searchUserSummary(userId);
         return R.ok(summary);
     }
 
-    @GetMapping("/logout")
-    @Operation(summary = "退出系统")
-    public R logout() {
-        StpUtil.logout();
-        return R.ok();
-    }
-
     @PostMapping("/updatePassword")
-    @SaCheckLogin
     @Operation(summary = "修改密码")
     public R updatePassword(@Valid @RequestBody UpdatePasswordForm form) {
-        int userId = StpUtil.getLoginIdAsInt();
         HashMap param = new HashMap() {{
-            put("userId", userId);
             put("password", form.getPassword());
         }};
         int rows = userService.updatePassword(param);
@@ -176,16 +160,10 @@ public class UserController {
 
 
     @PostMapping("/update")
-    @SaCheckPermission(value = {"ROOT", "USER:UPDATE"}, mode = SaMode.OR)
     @Operation(summary = "修改用户")
     public R update(@Valid @RequestBody UpdateUserForm form) {
         HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
-        int userId = StpUtil.getLoginIdAsInt();
-        param.put("userId",userId);
         int rows = userService.update(param);
-        if (rows == 1) {
-            StpUtil.logout(userId);
-        }
         return R.ok().put("rows", rows);
     }
 

@@ -1,7 +1,6 @@
 package com.liuyubo.qs.controller;
 
 
-import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.CountForm;
 import com.liuyubo.qs.controller.form.DeleteMonitorByIdsForm;
@@ -19,7 +18,6 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/monitor")
-@SaCheckLogin
 @Tag(name = "MonitorController", description = "视频监控模块")
 public class MonitorController {
 

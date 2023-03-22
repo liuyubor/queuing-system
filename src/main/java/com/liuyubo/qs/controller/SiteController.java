@@ -1,7 +1,5 @@
 package com.liuyubo.qs.controller;
 
-import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.SearchSiteByPageForm;
 import com.liuyubo.qs.controller.form.searchTimeByIdForm;
@@ -17,7 +15,6 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/site")
-@SaCheckLogin
 @Tag(name = "SiteController", description = "核酸站点接口")
 public class SiteController {
 
@@ -29,7 +26,6 @@ public class SiteController {
 
     @GetMapping("/searchAllSite")
     @Operation(summary = "查询所有核酸站点")
-    @SaIgnore
     public R searchAllSite() {
         ArrayList<HashMap> list = siteService.searchAllSite();
         return R.ok().put("list", list);
@@ -37,7 +33,6 @@ public class SiteController {
 
     @PostMapping("/searchSiteByPage")
     @Operation(summary = "分页查询核酸站点")
-    @SaIgnore
     public R searchSiteByPage(@Valid @RequestBody SearchSiteByPageForm form){
         int page=form.getCurrentPage();
         int size=form.getSize();
@@ -50,7 +45,6 @@ public class SiteController {
 
     @PostMapping("/searchTimeById")
     @Operation(summary = "根据ID查询时段")
-    @SaIgnore
     public R searchTimeById(@Valid @RequestBody searchTimeByIdForm form){
         ArrayList<String> list = siteService.searchTimeById(form.getId());
         return R.ok().put("list",list);

@@ -23,4 +23,6 @@ public interface UserService {
     Integer updatePassword(HashMap param);
 
     Integer update(HashMap param);
+
+    Integer searchIdByOpenId(String code);
 }

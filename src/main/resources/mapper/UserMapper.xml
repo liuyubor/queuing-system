@@ -39,7 +39,7 @@
         WHERE u.id = #{userId}
     </select>
     <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
-        SELECT id FROM tb_user WHERE open_id=#{openId} AND status = 1
+        SELECT id FROM tb_user WHERE open_id=#{openId}
     </select>
     <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
         INSERT INTO tb_user

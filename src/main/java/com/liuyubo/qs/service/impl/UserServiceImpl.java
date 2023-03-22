@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public HashMap wechatLogin(String code) {
+        //查看redis里面有没有这个openid，有的话就删除然后重新登陆，没有就返回没有
         HashMap map = new HashMap();
         boolean result = false;
         if (Boolean.TRUE.equals(redisTemplate.hasKey(code))) {
@@ -66,6 +67,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer update(HashMap param) {
         return userMapper.update(param);
+    }
+
+    @Override
+    public Integer searchIdByOpenId(String code) {
+        return userMapper.searchIdByOpenId(code);
     }
 
 

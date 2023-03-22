@@ -26,6 +26,8 @@ public interface UserMapper {
     Integer updatePassword(HashMap param);
 
     Integer update(HashMap param);
+
+    Integer searchIdByOpenId(String code);
 }
 
 
