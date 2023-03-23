@@ -1,10 +1,5 @@
 package com.liuyubo.qs.controller;
 
-import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.dev33.satoken.annotation.SaIgnore;
-import cn.dev33.satoken.annotation.SaMode;
-import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.RegisterForm;
 import com.liuyubo.qs.controller.form.UpdatePasswordForm;
@@ -139,13 +134,6 @@ public class UserController {
         user.setRoot(0);
         Integer rows = userService.insert(user);
         return R.ok().put("rows",rows);
-    }
-
-    @GetMapping("/loadUserInfo")
-    @Operation(summary = "登陆成功后加载用户的基本信息")
-    public R loadUserInfo() {
-        HashMap summary = userService.searchUserSummary(userId);
-        return R.ok(summary);
     }
 
     @PostMapping("/updatePassword")

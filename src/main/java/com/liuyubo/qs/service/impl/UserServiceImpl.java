@@ -17,31 +17,10 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-
-    private final RedisTemplate redisTemplate;
     private final UserMapper userMapper;
 
-    public UserServiceImpl(UserMapper userMapper, RedisTemplate redisTemplate) {
+    public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
-        this.redisTemplate = redisTemplate;
-    }
-
-    @Override
-    public HashMap wechatLogin(String code) {
-        //查看redis里面有没有这个openid，有的话就删除然后重新登陆，没有就返回没有
-        HashMap map = new HashMap();
-        boolean result = false;
-        if (Boolean.TRUE.equals(redisTemplate.hasKey(code))) {
-            String value = redisTemplate.opsForValue().get(code).toString();
-            if (!"false".equals(value)) {
-                result = true;
-                redisTemplate.delete(code);
-                int userId = Integer.parseInt(value);
-                map.put("userId", userId);
-            }
-        }
-        map.put("result", result);
-        return map;
     }
 
     @Override
