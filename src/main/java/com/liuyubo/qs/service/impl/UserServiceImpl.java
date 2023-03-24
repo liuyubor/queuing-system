@@ -3,7 +3,6 @@ package com.liuyubo.qs.service.impl;
 import com.liuyubo.qs.db.DAO.UserMapper;
 import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.UserService;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,6 +20,11 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
+    }
+
+    @Override
+    public HashMap wechatLogin(String code) {
+        return null;
     }
 
     @Override

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.TreeMap;
 
 @RestController
@@ -78,21 +77,35 @@ public class UserController {
         }
     }
 
-    @PostMapping("/wechatLogin")
-    @Operation(summary = "微信小程序登陆")
-    public R wechatLogin(@Valid @RequestBody WechatLoginForm form) {
-        HashMap map = userService.wechatLogin(form.getCode());
-        boolean result = (boolean) map.get("result");
-        int id = userService.searchIdByOpenId(form.getCode());
-        if (true) {
-            int userId = (int) map.get("userId");
-            Set<String> permissions = userService.searchUserPermissions(userId);
-            map.remove("userId");
-            map.put("permissions", permissions);
+    @GetMapping("/login")
+    @Operation(summary = "登录")
+    public R login(@RequestParam("openId") String openId) {
+        Integer userId = userService.searchIdByOpenId(openId);
+        if (userId == null) {
+            return R.error("用户不存在");
         }
+        /**
+         * userSummary
+         * {
+         *    "id": 1,
+         *    "username": "liuyubo",
+         *    "nickname": "liuyubo",
+         *    "photo": "https://liuyubo-1258579779.cos.ap-shanghai.myqcloud.com/2021/07/31/1627700000.png",
+         *    "tel": "12345678901",
+         *    "roles": [2,3]
+         *    "openId": "oQKgO5QZ0Z0Z0Z0Z0Z0Z0Z0Z0Z0Z0"
+         *    }
+         */
+        HashMap userSummary = userService.searchUserSummary(userId);
+        return R.ok(userSummary);
 
-        map.put("id",id);
-        return R.ok(map);
+    }
+
+    @GetMapping("/loadUserInfo")
+    @Operation(summary = "加载用户信息")
+    public R loadUserInfo(@RequestParam("userId") Integer userId) {
+        HashMap userSummary = userService.searchUserSummary(userId);
+        return R.ok(userSummary);
     }
 
     @GetMapping("/upload")
