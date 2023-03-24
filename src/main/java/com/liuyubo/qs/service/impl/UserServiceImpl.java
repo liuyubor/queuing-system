@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.searchIdByOpenId(code);
     }
 
+    @Override
+    public HashMap loadUserInfo(String openId) {
+        return userMapper.loadUserInfo(openId);
+    }
+
 
 }
 

@@ -28,6 +28,8 @@ public interface UserMapper {
     Integer update(HashMap param);
 
     Integer searchIdByOpenId(String code);
+
+    HashMap loadUserInfo(String openId);
 }
 
 

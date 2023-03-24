@@ -43,6 +43,17 @@
     <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
         SELECT id FROM tb_user WHERE openid=#{openId} LIMIT 1
     </select>
+    <select id="loadUserInfo" parameterType="String" resultType="HashMap">
+        SELECT u.nickname,
+               u.username,
+               u.photo,
+               u.tel,
+               ( SELECT role_name
+                 FROM tb_role r
+                 WHERE r.id=u.role ) AS role
+        FROM tb_user u
+        WHERE u.openid=#{openId}
+    </select>
     <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
         INSERT INTO tb_user
         SET

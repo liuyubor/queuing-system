@@ -102,9 +102,9 @@ public class UserController {
 
     @GetMapping("/loadUserInfo")
     @Operation(summary = "加载用户信息")
-    public R loadUserInfo(@RequestParam("userId") Integer userId) {
-        HashMap userSummary = userService.searchUserSummary(userId);
-        return R.ok(userSummary);
+    public R loadUserInfo(@RequestParam("openId") String openId) {
+        HashMap userinfo = userService.loadUserInfo(openId);
+        return R.ok(userinfo);
     }
 
     @GetMapping("/upload")
