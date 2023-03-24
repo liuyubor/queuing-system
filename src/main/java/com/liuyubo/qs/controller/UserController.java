@@ -2,7 +2,6 @@ package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.RegisterForm;
-import com.liuyubo.qs.controller.form.UpdatePasswordForm;
 import com.liuyubo.qs.controller.form.UpdateUserForm;
 import com.liuyubo.qs.controller.form.WechatLoginForm;
 import com.liuyubo.qs.db.POJO.User;
@@ -148,17 +147,6 @@ public class UserController {
         Integer rows = userService.insert(user);
         return R.ok().put("rows",rows);
     }
-
-    @PostMapping("/updatePassword")
-    @Operation(summary = "修改密码")
-    public R updatePassword(@Valid @RequestBody UpdatePasswordForm form) {
-        HashMap param = new HashMap() {{
-            put("password", form.getPassword());
-        }};
-        int rows = userService.updatePassword(param);
-        return R.ok().put("rows", rows);
-    }
-
 
     @PostMapping("/update")
     @Operation(summary = "修改用户")
