@@ -52,7 +52,7 @@
                  FROM tb_role r
                  WHERE r.id=u.role ) AS role
         FROM tb_user u
-        WHERE u.openid=#{openId}
+        WHERE u.openid=#{openId} LIMIT 1
     </select>
     <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
         INSERT INTO tb_user
