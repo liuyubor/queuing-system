@@ -34,12 +34,14 @@
                u.username,
                u.photo,
                u.tel,
-               ( SELECT GROUP_CONCAT( role_name separator "，" ) FROM tb_role WHERE JSON_CONTAINS ( u.role, CONVERT ( id, CHAR ) ) ) AS roles
+               ( SELECT role_name
+                 FROM tb_role r
+                 WHERE r.id=u.role ) AS role
         FROM tb_user u
         WHERE u.id = #{userId}
     </select>
     <select id="searchIdByOpenId" parameterType="String" resultType="Integer">
-        SELECT id FROM tb_user WHERE open_id=#{openId}
+        SELECT id FROM tb_user WHERE openid=#{openId} LIMIT 1
     </select>
     <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
         INSERT INTO tb_user
