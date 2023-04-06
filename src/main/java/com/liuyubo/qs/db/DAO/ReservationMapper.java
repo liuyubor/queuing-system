@@ -3,6 +3,7 @@ package com.liuyubo.qs.db.DAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,6 +17,12 @@ import java.util.HashMap;
 public interface ReservationMapper {
 
     Integer insert(HashMap map);
+
+    Integer selectTimeConflict(HashMap map);
+
+    ArrayList<HashMap> selectAllReserve();
+
+    HashMap selectReserveByUserId(String userId);
 }
 
 

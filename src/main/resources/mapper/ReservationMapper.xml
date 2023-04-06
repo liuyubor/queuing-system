@@ -23,4 +23,37 @@
         VALUES
         (#{userId},#{siteId},now(),#{timeId},#{status})
     </insert>
+    <select id="selectTimeConflict" parameterType="HashMap" resultType="Integer">
+        select count(*)
+        from tb_reservation
+        where status = #{status} and user = #{userId}
+    </select>
+    <select id="selectAllReserve" resultType="HashMap">
+        select tb_reservation.id as id,
+        tb_user.username as user,
+        tb_site.name as site,
+        DATE_FORMAT(tb_reservation.date, '%Y-%m-%d %H:%i:%s') as date,
+        tb_time_slot.time_slot as time,
+        tb_reservation.status as status
+        from tb_reservation
+        left join tb_user on tb_reservation.user = tb_user.openid
+        left join tb_site on tb_reservation.site = tb_site.id
+        left join tb_time_slot on tb_reservation.time_slot = tb_time_slot.id
+        where tb_reservation.status = #{status}
+        order by tb_reservation.date desc
+    </select>
+    <select id="selectReserveByUserId" resultType="HashMap">
+        select tb_reservation.id as id,
+        tb_user.username as user,
+        tb_site.name as site,
+        DATE_FORMAT(tb_reservation.date, '%Y-%m-%d %H:%i:%s') as date,
+        tb_time_slot.time_slot as time,
+        tb_reservation.status as status
+        from tb_reservation
+        left join tb_user on tb_reservation.user = tb_user.openid
+        left join tb_site on tb_reservation.site = tb_site.id
+        left join tb_time_slot on tb_reservation.time_slot = tb_time_slot.id
+        where tb_reservation.status = '预约成功' and tb_reservation.user = #{userId}
+        limit 1;
+    </select>
 </mapper>

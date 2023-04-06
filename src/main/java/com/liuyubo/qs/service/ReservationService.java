@@ -1,5 +1,6 @@
 package com.liuyubo.qs.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,4 +11,10 @@ import java.util.HashMap;
 public interface ReservationService {
 
     Integer insert(HashMap map);
+
+    Boolean selectTimeConflict(HashMap map);
+
+    ArrayList<HashMap> selectAllReserve();
+
+    HashMap selectReserveByUserId(String userId);
 }

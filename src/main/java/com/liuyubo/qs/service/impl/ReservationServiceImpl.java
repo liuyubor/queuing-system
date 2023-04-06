@@ -4,6 +4,7 @@ import com.liuyubo.qs.db.DAO.ReservationMapper;
 import com.liuyubo.qs.service.ReservationService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,6 +24,21 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Integer insert(HashMap map) {
         return reservationMapper.insert(map);
+    }
+
+    @Override
+    public Boolean selectTimeConflict(HashMap map) {
+        return reservationMapper.selectTimeConflict(map) > 0;
+    }
+
+    @Override
+    public ArrayList<HashMap> selectAllReserve() {
+        return reservationMapper.selectAllReserve();
+    }
+
+    @Override
+    public HashMap selectReserveByUserId(String userId) {
+        return reservationMapper.selectReserveByUserId(userId);
     }
 }
 

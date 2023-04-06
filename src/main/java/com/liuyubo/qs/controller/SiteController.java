@@ -66,6 +66,9 @@ public class SiteController {
         Integer timeId = timeSlotService.searchTimeIdByTime(form.getTime());
         map.put("timeId",timeId);
         map.put("status","预约成功");
+        if (reserveService.selectTimeConflict(map)) {
+            return R.ok("该时间段已被预约");
+        }
         int rows = reserveService.insert(map);
         return R.ok().put("rows",rows);
     }
