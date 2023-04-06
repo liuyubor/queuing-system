@@ -1,9 +1,12 @@
 package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
+import com.liuyubo.qs.controller.form.ReserveForm;
 import com.liuyubo.qs.controller.form.SearchSiteByPageForm;
 import com.liuyubo.qs.controller.form.searchTimeByIdForm;
+import com.liuyubo.qs.service.ReservationService;
 import com.liuyubo.qs.service.SiteService;
+import com.liuyubo.qs.service.TimeSlotService;
 import com.liuyubo.qs.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,8 +23,14 @@ public class SiteController {
 
     final SiteService siteService;
 
-    public SiteController(SiteService siteService) {
+    final TimeSlotService timeSlotService;
+
+    final ReservationService reserveService;
+
+    public SiteController(SiteService siteService, ReservationService reserveService, TimeSlotService timeSlotService) {
         this.siteService = siteService;
+        this.reserveService = reserveService;
+        this.timeSlotService = timeSlotService;
     }
 
     @GetMapping("/searchAllSite")
@@ -46,7 +55,18 @@ public class SiteController {
     @PostMapping("/searchTimeById")
     @Operation(summary = "根据ID查询时段")
     public R searchTimeById(@Valid @RequestBody searchTimeByIdForm form){
-        ArrayList<String> list = siteService.searchTimeById(form.getId());
+        ArrayList<String> list = timeSlotService.searchTimeById(form.getId());
         return R.ok().put("list",list);
+    }
+
+    @PostMapping("/reserve")
+    @Operation(summary = "预约")
+    public R reserve(@Valid @RequestBody ReserveForm form){
+        HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
+        Integer timeId = timeSlotService.searchTimeIdByTime(form.getTime());
+        map.put("timeId",timeId);
+        map.put("status","预约成功");
+        int rows = reserveService.insert(map);
+        return R.ok().put("rows",rows);
     }
 }

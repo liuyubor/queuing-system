@@ -17,4 +17,10 @@
         id,user,site,
         date,time_slot,status
     </sql>
+    <insert id="insert">
+        INSERT INTO tb_reservation
+        (user,site,date,time_slot,status)
+        VALUES
+        (#{userId},#{siteId},now(),#{timeId},#{status})
+    </insert>
 </mapper>

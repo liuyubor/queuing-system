@@ -53,16 +53,7 @@ public class SiteServiceImpl implements SiteService {
         return siteMapper.searchSiteCount(param);
     }
 
-    @Override
-    public ArrayList<String> searchTimeById(Integer id) {
-        String timeSlot = siteMapper.searchTimeSlotById(id);
-        String[] times = timeSlot.split(",");
-        int[] intArray = Arrays.stream(times)
-                .map(Integer::parseInt)
-                .mapToInt(Integer::intValue)
-                .toArray();
-        return siteMapper.searchTimeById(intArray);
-    }
+
 }
 
 

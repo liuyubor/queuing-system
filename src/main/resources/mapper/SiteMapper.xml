@@ -43,20 +43,6 @@
     <select id="searchSiteCount" resultType="java.lang.Long">
 
     </select>
-    <select id="searchTimeById" parameterType="int" resultType="String">
-        SELECT
-        t.time_slot
-        FROM tb_time_slot t
-        WHERE t.id IN (
-            SELECT s.time_slot
-            FROM tb_site s
-            WHERE id=#{id}
-            )
-    </select>
-    <select id="searchTimeSlotById" parameterType="int" resultType="String">
-        SELECT s.time_slot
-        FROM tb_site s
-        WHERE id=#{id}
-    </select>
+
 
 </mapper>

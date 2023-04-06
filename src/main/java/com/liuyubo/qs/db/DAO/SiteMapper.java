@@ -30,9 +30,7 @@ public interface SiteMapper {
 
     Long searchSiteCount(HashMap param);
 
-    ArrayList<String> searchTimeById(int[] times);
 
-    String searchTimeSlotById(Integer id);
 }
 
 

@@ -3,6 +3,8 @@ package com.liuyubo.qs.db.DAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+
 /**
 * @author kdrsi
 * @description 针对表【tb_reservation】的数据库操作Mapper
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface ReservationMapper {
 
+    Integer insert(HashMap map);
 }
 
 

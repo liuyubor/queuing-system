@@ -1,5 +1,7 @@
 package com.liuyubo.qs.service;
 
+import java.util.HashMap;
+
 /**
 * @author kdrsi
 * @description 针对表【tb_reservation】的数据库操作Service
@@ -7,4 +9,5 @@ package com.liuyubo.qs.service;
 */
 public interface ReservationService {
 
+    Integer insert(HashMap map);
 }

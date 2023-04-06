@@ -11,4 +11,24 @@
     <sql id="Base_Column_List">
         id,time_slot
     </sql>
+
+    <select id="searchTimeById" resultType="String">
+        SELECT t.time_slot AS timeSlot
+        FROM tb_time_slot t
+        WHERE t.id in (
+        <foreach collection="times" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+    <select id="searchTimeSlotById" parameterType="int" resultType="String">
+        SELECT s.time_slot
+        FROM tb_site s
+        WHERE id=#{id}
+    </select>
+    <select id="searchTimeIdByTime" resultType="Integer">
+        SELECT t.id
+        FROM tb_time_slot t
+        WHERE t.time_slot=#{time}
+    </select>
 </mapper>

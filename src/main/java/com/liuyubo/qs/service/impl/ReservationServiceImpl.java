@@ -1,7 +1,10 @@
 package com.liuyubo.qs.service.impl;
 
+import com.liuyubo.qs.db.DAO.ReservationMapper;
 import com.liuyubo.qs.service.ReservationService;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 /**
  * @author kdrsi
@@ -11,6 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
+    final ReservationMapper reservationMapper;
+
+    public ReservationServiceImpl(ReservationMapper reservationMapper) {
+        this.reservationMapper = reservationMapper;
+    }
+
+    @Override
+    public Integer insert(HashMap map) {
+        return reservationMapper.insert(map);
+    }
 }
 
 
