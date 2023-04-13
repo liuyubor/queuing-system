@@ -21,4 +21,6 @@ public interface ReservationService {
     ArrayList<HashMap> allReserves(HashMap param);
 
     Integer deleteReserve(String id);
+
+    Integer updateReserve(HashMap map);
 }

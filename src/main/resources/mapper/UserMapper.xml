@@ -108,6 +108,24 @@
             tel=#{tel}
         WHERE id=#{userId}
     </update>
+    <update id="updateUser">
+        UPDATE tb_user
+        SET
+        <if test="username!=null">
+            username = #{username},
+        </if>
+        <if test="nickname!=null">
+            nickname = #{nickname},
+        </if>
+        <if test="tel!=null">
+            tel = #{tel},
+        </if>
+        <if test="role!=null">
+            role = #{role},
+        </if>
+            id=#{id}
+        WHERE id=#{id}
+    </update>
 
 
 </mapper>

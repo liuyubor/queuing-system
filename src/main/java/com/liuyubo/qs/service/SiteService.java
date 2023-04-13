@@ -25,4 +25,8 @@ public interface SiteService {
     Integer addSite(HashMap map);
 
     Integer deleteSite(String id);
+
+    String getTimeSlotById(String id);
+
+    Integer updateSite(HashMap map);
 }

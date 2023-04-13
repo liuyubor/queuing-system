@@ -1,5 +1,6 @@
 package com.liuyubo.qs.controller;
 
+import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
 import com.liuyubo.qs.controller.form.*;
 import com.liuyubo.qs.service.ReservationService;
@@ -7,6 +8,7 @@ import com.liuyubo.qs.service.SiteService;
 import com.liuyubo.qs.service.TimeSlotService;
 import com.liuyubo.qs.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -101,6 +103,23 @@ public class SiteController {
     @Operation(summary = "删除核酸站点")
     public R deleteSite(@Valid @RequestBody DeleteForm form){
         int rows = siteService.deleteSite(form.getId());
+        return R.ok().put("rows",rows);
+    }
+
+    @PostMapping("/getTimeSlotById")
+    @Schema(description = "根据id获取时间段")
+    public R getTimeSlotById(@Valid @RequestBody GetTimeSlotByIdForm form) {
+        String timeSlot = siteService.getTimeSlotById(form.getId());
+        String[] arr = timeSlot.split(",");
+        JSON json = JSONUtil.parse(arr);
+        return R.ok().put("timeSlot", json);
+    }
+
+    @PostMapping("/updateSite")
+    @Schema(description = "更新核酸站点信息")
+    public R updateSite(@Valid @RequestBody UpdateSiteForm form){
+        HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
+        int rows = siteService.updateSite(map);
         return R.ok().put("rows",rows);
     }
 }

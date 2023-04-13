@@ -4,7 +4,7 @@ import com.liuyubo.qs.service.TimeSlotService;
 import com.liuyubo.qs.utils.R;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +23,7 @@ public class TimeSlotController {
         this.timeSlotService = timeSlotService;
     }
 
-    @PostMapping("/getTimeSlots")
+    @GetMapping("/getTimeSlots")
     @Schema(description = "获取时间段列表")
     public R getTimeSlots() {
         ArrayList<HashMap> timeSlots = timeSlotService.getTimeSlots();

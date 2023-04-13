@@ -73,6 +73,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.deleteUser(id);
     }
 
+    @Override
+    public Integer updateUser(HashMap param) {
+        return userMapper.updateUser(param);
+    }
+
 
 }
 

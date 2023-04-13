@@ -49,6 +49,30 @@
         SET appointment_count = appointment_count + 1
         WHERE id = #{id}
     </update>
+    <update id="updateSite">
+        UPDATE tb_site
+        SET
+        <if test="name != null">
+            name=#{name},
+        </if>
+        <if test="description != null">
+            description=#{description},
+        </if>
+        <if test="days != null">
+            days=#{days},
+        </if>
+        <if test="capacity != null">
+            capacity=#{capacity},
+        </if>
+        <if test="timeSlots != null">
+            time_slot=#{timeSlots},
+        </if>
+        <if test="status != null">
+            status=#{status},
+        </if>
+            id=#{id}
+        WHERE id=#{id}
+    </update>
     <select id="searchSiteInfoById" resultType="HashMap">
         SELECT s.id,
         s.name,
@@ -71,6 +95,9 @@
         FROM tb_site s
         LIMIT #{start}, #{size}
     </select>
-
-
+    <select id="getTimeSlotById" resultType="java.lang.String">
+        SELECT time_slot AS timeSlot
+        FROM tb_site
+        WHERE id=#{id}
+    </select>
 </mapper>

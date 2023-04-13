@@ -73,9 +73,13 @@ public class SiteServiceImpl implements SiteService {
         return siteMapper.deleteSite(id);
     }
 
+    @Override
+    public String getTimeSlotById(String id) {
+        return siteMapper.getTimeSlotById(id);
+    }
 
+    @Override
+    public Integer updateSite(HashMap map) {
+        return siteMapper.updateSite(map);
+    }
 }
-
-
-
-

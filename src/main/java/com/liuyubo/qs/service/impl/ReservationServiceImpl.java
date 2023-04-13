@@ -50,6 +50,11 @@ public class ReservationServiceImpl implements ReservationService {
     public Integer deleteReserve(String id) {
         return reservationMapper.deleteReserve(id);
     }
+
+    @Override
+    public Integer updateReserve(HashMap map) {
+        return reservationMapper.updateReserve(map);
+    }
 }
 
 

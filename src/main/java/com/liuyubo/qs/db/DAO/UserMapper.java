@@ -35,6 +35,8 @@ public interface UserMapper {
     ArrayList<HashMap> allUsers(HashMap param);
 
     Integer deleteUser(String id);
+
+    Integer updateUser(HashMap param);
 }
 
 

@@ -174,4 +174,12 @@ public class UserController {
         return R.ok().put("rows",rows);
     }
 
+    @PostMapping("/updateUser")
+    @Operation(summary = "修改用户")
+    public R updateUser(@Valid @RequestBody UpdateUserAForm form){
+        HashMap param = JSONUtil.parse(form).toBean(HashMap.class);
+        int rows = userService.updateUser(param);
+        return R.ok().put("rows",rows);
+    }
+
 }

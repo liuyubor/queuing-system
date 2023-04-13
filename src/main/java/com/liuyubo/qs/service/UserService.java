@@ -32,4 +32,6 @@ public interface UserService {
     ArrayList<HashMap> allUsers(HashMap param);
 
     Integer deleteUser(String id);
+
+    Integer updateUser(HashMap param);
 }

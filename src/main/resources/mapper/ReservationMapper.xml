@@ -23,6 +23,21 @@
         VALUES
         (#{userId},#{siteId},now(),#{timeId},#{status})
     </insert>
+    <update id="updateReserve" parameterType="HashMap">
+        update tb_reservation
+        set
+        <if test="siteId != null">
+            site = #{siteId},
+        </if>
+        <if test="timeId != null">
+            time_slot = #{timeId},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+            id = #{id}
+        where id = #{id}
+    </update>
     <delete id="deleteReserve">
         delete from tb_reservation
         where id = #{id}
