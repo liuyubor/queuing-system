@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Schema(description = "核酸站点ID")
-public class searchTimeByIdForm {
+public class SearchTimeByIdForm {
 
     @NotNull(message = "ids不能为空")
     @Schema(description = "核酸站点ID")

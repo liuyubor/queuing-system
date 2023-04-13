@@ -4,6 +4,7 @@ import com.liuyubo.qs.db.POJO.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -30,6 +31,8 @@ public interface UserMapper {
     Integer searchIdByOpenId(String code);
 
     HashMap loadUserInfo(String openId);
+
+    ArrayList<HashMap> allUsers(HashMap param);
 }
 
 

@@ -1,4 +1,4 @@
-package com.liuyubo.qs.utils;
+package com.liuyubo.qs.bodytrack;
 
 import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 public class BodyTrack {
-    static final OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder().build();
+     final static OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder().build();
 
 
     /**
@@ -19,14 +19,13 @@ public class BodyTrack {
      * "image": "/9j/4AAoFS2P/9k="
      * }
      */
-    public static String body_num() {
+    public static String body_num_base64(String imgStr) {
         // 请求url
         String url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_num";
         try {
-            // 本地文件路径
-            String filePath = "[文件路径]";
-            byte[] imgData = FileUtil.readFileByBytes(filePath);
-            String imgStr = Base64Util.encode(imgData);
+//            byte[] imgData = FileUtil.readFileByBytes(filePath);
+//            String imgStr = Base64Util.encode(imgData);
+
             String imgParam = URLEncoder.encode(imgStr, StandardCharsets.UTF_8);
 
             String param = "image=" + imgParam;

@@ -23,6 +23,10 @@ public interface ReservationMapper {
     ArrayList<HashMap> selectAllReserve();
 
     HashMap selectReserveByUserId(String userId);
+
+    ArrayList<HashMap> allUsers(HashMap param);
+
+    ArrayList<HashMap> allReserves(HashMap param);
 }
 
 

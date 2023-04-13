@@ -23,4 +23,12 @@ public interface SiteService {
     Integer deleteSiteByIds(Integer[] ids);
 
     Long searchSiteCount(HashMap param);
+
+    HashMap searchSiteInfoById(Integer id);
+
+    Integer updateSiteCount(Integer id);
+
+    String searchDequeueCountById(Integer id);
+
+    ArrayList<HashMap> allSites(HashMap param);
 }

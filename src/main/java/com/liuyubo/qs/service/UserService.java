@@ -2,6 +2,7 @@ package com.liuyubo.qs.service;
 
 import com.liuyubo.qs.db.POJO.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -27,4 +28,6 @@ public interface UserService {
     Integer searchIdByOpenId(String code);
 
     HashMap loadUserInfo(String openId);
+
+    ArrayList<HashMap> allUsers(HashMap param);
 }

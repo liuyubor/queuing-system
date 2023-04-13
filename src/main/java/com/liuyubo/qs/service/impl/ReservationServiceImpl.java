@@ -40,6 +40,11 @@ public class ReservationServiceImpl implements ReservationService {
     public HashMap selectReserveByUserId(String userId) {
         return reservationMapper.selectReserveByUserId(userId);
     }
+
+    @Override
+    public ArrayList<HashMap> allReserves(HashMap param) {
+        return reservationMapper.allReserves(param);
+    }
 }
 
 

@@ -54,6 +54,15 @@
         FROM tb_user u
         WHERE u.openid=#{openId} LIMIT 1
     </select>
+    <select id="allUsers" resultType="java.util.HashMap">
+        SELECT u.id,
+               u.username,
+               u.nickname,
+               u.tel,
+               u.root
+        FROM tb_user u
+        LIMIT #{start}, #{size}
+    </select>
     <insert id="insert" parameterType="com.liuyubo.qs.db.POJO.User">
         INSERT INTO tb_user
         SET

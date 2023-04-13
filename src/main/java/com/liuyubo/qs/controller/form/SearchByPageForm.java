@@ -7,8 +7,8 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
 @Data
-@Schema(description = "查询核酸分页记录表单")
-public class SearchSiteByPageForm {
+@Schema(description = "查询分页记录表单")
+public class SearchByPageForm {
     @NotNull(message = "page不能为空")
     @Min(value = 1, message = "page不能小于1")
     @Schema(description = "页数")

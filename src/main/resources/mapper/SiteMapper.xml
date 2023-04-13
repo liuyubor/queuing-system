@@ -39,9 +39,38 @@
     </select>
     <insert id="insert"></insert>
     <update id="update"></update>
+    <update id="updateSiteCount">
+        UPDATE tb_site
+        SET appointment_count = appointment_count + 1
+        WHERE id = #{id}
+    </update>
     <delete id="deleteSiteByIds"></delete>
     <select id="searchSiteCount" resultType="java.lang.Long">
 
+    </select>
+    <select id="searchSiteInfoById" resultType="HashMap">
+        SELECT s.id,
+        s.name,
+        s.description,
+        s.point,
+        s.appointment_count AS count,
+        s.capacity,
+        s.days,
+        s.time_slot,
+        s.status
+        FROM tb_site s
+        WHERE s.id=#{id}
+    </select>
+    <select id="allSites" resultType="java.util.HashMap">
+        SELECT DISTINCT s.id,
+                        s.name,
+                        s.description,
+                        s.point,
+                        s.appointment_count AS count,
+                        s.capacity,
+                        s.days
+        FROM tb_site s
+        LIMIT #{start}, #{size}
     </select>
 
 

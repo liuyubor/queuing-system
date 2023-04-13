@@ -17,4 +17,6 @@ public interface ReservationService {
     ArrayList<HashMap> selectAllReserve();
 
     HashMap selectReserveByUserId(String userId);
+
+    ArrayList<HashMap> allReserves(HashMap param);
 }

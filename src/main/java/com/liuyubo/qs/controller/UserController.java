@@ -1,9 +1,7 @@
 package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.liuyubo.qs.controller.form.RegisterForm;
-import com.liuyubo.qs.controller.form.UpdateUserForm;
-import com.liuyubo.qs.controller.form.WechatLoginForm;
+import com.liuyubo.qs.controller.form.*;
 import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.impl.UserServiceImpl;
 import com.liuyubo.qs.utils.R;
@@ -18,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -156,5 +155,16 @@ public class UserController {
         return R.ok().put("rows", rows);
     }
 
+    @PostMapping("/allUsers")
+    @Operation(summary = "分页查询核酸站点")
+    public R allUsers(@Valid @RequestBody SearchByPageForm form){
+        int page=form.getCurrentPage();
+        int size=form.getSize();
+        int start=(page-1)*size;
+        HashMap param= JSONUtil.parse(form).toBean(HashMap.class);
+        param.put("start",start);
+        ArrayList<HashMap> users = userService.allUsers(param);
+        return R.ok().put("users",users);
+    }
 
 }

@@ -37,3 +37,4 @@ build/
 /.mvn/wrapper/
 /mvnw
 /mvnw.cmd
+*.mp4

@@ -30,7 +30,11 @@ public interface SiteMapper {
 
     Long searchSiteCount(HashMap param);
 
+    HashMap searchSiteInfoById(Integer id);
 
+    Integer updateSiteCount(Integer id);
+
+    ArrayList<HashMap> allSites(HashMap param);
 }
 
 

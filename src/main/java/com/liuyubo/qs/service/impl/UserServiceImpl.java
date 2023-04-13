@@ -5,6 +5,7 @@ import com.liuyubo.qs.db.POJO.User;
 import com.liuyubo.qs.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -60,6 +61,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public HashMap loadUserInfo(String openId) {
         return userMapper.loadUserInfo(openId);
+    }
+
+    @Override
+    public ArrayList<HashMap> allUsers(HashMap param) {
+        return userMapper.allUsers(param);
     }
 
 

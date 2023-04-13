@@ -1,13 +1,18 @@
 package com.liuyubo.qs.service.impl;
 
+import com.liuyubo.qs.bodytrack.BodyTrack;
 import com.liuyubo.qs.db.DAO.SiteMapper;
 import com.liuyubo.qs.db.POJO.Site;
 import com.liuyubo.qs.service.SiteService;
+import com.liuyubo.qs.utils.RandomV;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+
+import static java.lang.String.valueOf;
 
 /**
 * @author kdrsi
@@ -51,6 +56,32 @@ public class SiteServiceImpl implements SiteService {
     @Override
     public Long searchSiteCount(HashMap param) {
         return siteMapper.searchSiteCount(param);
+    }
+
+    @Override
+    public HashMap searchSiteInfoById(Integer id) {
+        return siteMapper.searchSiteInfoById(id);
+    }
+
+    @Override
+    public Integer updateSiteCount(Integer id) {
+        return siteMapper.updateSiteCount(id);
+    }
+
+    @SneakyThrows
+    @Override
+    public String searchDequeueCountById(Integer id) {
+        String path = valueOf((int) ((Math.random()*10)));
+        // 获取随机base64图
+        String base64 = RandomV.getVideoPic(ResourceUtils.getFile("classpath:video/" + path + ".mp4"));
+        // 获取人数
+        String res = BodyTrack.body_num_base64(base64);
+        return res;
+    }
+
+    @Override
+    public ArrayList<HashMap> allSites(HashMap param) {
+        return siteMapper.allSites(param);
     }
 
 

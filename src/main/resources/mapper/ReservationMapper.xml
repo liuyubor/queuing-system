@@ -56,4 +56,18 @@
         where tb_reservation.status = '预约成功' and tb_reservation.user = #{userId}
         limit 1;
     </select>
+    <select id="allReserves" resultType="java.util.HashMap">
+        SELECT res.id,
+        user.username AS user,
+        site.name AS site,
+        res.date,
+        res.status,
+        time.time_slot AS timeSlot
+        FROM tb_reservation res,
+             tb_time_slot time,
+             tb_user user,
+             tb_site site
+        WHERE res.time_slot = time.id AND res.user = user.openid AND res.site = site.id
+        LIMIT #{start},#{size}
+    </select>
 </mapper>
