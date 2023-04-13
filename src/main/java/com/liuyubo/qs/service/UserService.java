@@ -30,4 +30,6 @@ public interface UserService {
     HashMap loadUserInfo(String openId);
 
     ArrayList<HashMap> allUsers(HashMap param);
+
+    Integer deleteUser(String id);
 }

@@ -68,6 +68,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.allUsers(param);
     }
 
+    @Override
+    public Integer deleteUser(String id) {
+        return userMapper.deleteUser(id);
+    }
+
 
 }
 

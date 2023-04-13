@@ -167,4 +167,11 @@ public class UserController {
         return R.ok().put("users",users);
     }
 
+    @PostMapping("/deleteUser")
+    @Operation(summary = "删除用户")
+    public R deleteUser(@Valid @RequestBody DeleteForm form){
+        int rows = userService.deleteUser(form.getId());
+        return R.ok().put("rows",rows);
+    }
+
 }

@@ -24,6 +24,10 @@
         VALUES
         (#{name}, #{description}, #{days}, #{capacity}, #{timeSlots})
     </insert>
+    <delete id="deleteSite">
+        delete from tb_site
+        where id = #{id}
+    </delete>
     <select id="searchAllSite" resultType="HashMap">
         SELECT *
         FROM tb_site s

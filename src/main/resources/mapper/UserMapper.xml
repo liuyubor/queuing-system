@@ -21,6 +21,10 @@
         nickname,photo,tel,
         role,root
     </sql>
+    <delete id="deleteUser">
+        delete from tb_user
+        where id = #{id}
+    </delete>
     <select id="searchUserPermissions" parameterType="int" resultType="String">
         SELECT DISTINCT p.permission_name
         FROM tb_user u

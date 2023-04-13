@@ -1,6 +1,7 @@
 package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
+import com.liuyubo.qs.controller.form.DeleteForm;
 import com.liuyubo.qs.controller.form.ReserveForm;
 import com.liuyubo.qs.controller.form.SearchByPageForm;
 import com.liuyubo.qs.service.ReservationService;
@@ -63,5 +64,12 @@ public class ReserveController {
         param.put("start",start);
         ArrayList<HashMap> reserves = reserveService.allReserves(param);
         return R.ok().put("reserves",reserves);
+    }
+
+    @PostMapping("/deleteReserve")
+    @Operation(summary = "删除预约记录")
+    public R deleteReserve(@Valid @RequestBody DeleteForm form){
+        int rows = reserveService.deleteReserve(form.getId());
+        return R.ok().put("rows",rows);
     }
 }

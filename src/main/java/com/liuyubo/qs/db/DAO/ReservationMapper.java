@@ -27,6 +27,8 @@ public interface ReservationMapper {
     ArrayList<HashMap> allUsers(HashMap param);
 
     ArrayList<HashMap> allReserves(HashMap param);
+
+    Integer deleteReserve(String id);
 }
 
 

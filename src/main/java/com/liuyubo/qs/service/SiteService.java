@@ -23,4 +23,6 @@ public interface SiteService {
     ArrayList<HashMap> allSites(HashMap param);
 
     Integer addSite(HashMap map);
+
+    Integer deleteSite(String id);
 }

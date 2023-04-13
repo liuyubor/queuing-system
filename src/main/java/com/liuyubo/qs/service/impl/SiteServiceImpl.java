@@ -68,6 +68,11 @@ public class SiteServiceImpl implements SiteService {
         return siteMapper.addSite(map);
     }
 
+    @Override
+    public Integer deleteSite(String id) {
+        return siteMapper.deleteSite(id);
+    }
+
 
 }
 

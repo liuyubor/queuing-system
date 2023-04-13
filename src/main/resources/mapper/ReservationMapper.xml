@@ -23,6 +23,10 @@
         VALUES
         (#{userId},#{siteId},now(),#{timeId},#{status})
     </insert>
+    <delete id="deleteReserve">
+        delete from tb_reservation
+        where id = #{id}
+    </delete>
     <select id="selectTimeConflict" parameterType="HashMap" resultType="Integer">
         select count(*)
         from tb_reservation

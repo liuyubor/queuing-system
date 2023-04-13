@@ -1,10 +1,7 @@
 package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.liuyubo.qs.controller.form.AddSiteForm;
-import com.liuyubo.qs.controller.form.SearchByPageForm;
-import com.liuyubo.qs.controller.form.SearchSiteInfoByIdForm;
-import com.liuyubo.qs.controller.form.SearchTimeByIdForm;
+import com.liuyubo.qs.controller.form.*;
 import com.liuyubo.qs.service.ReservationService;
 import com.liuyubo.qs.service.SiteService;
 import com.liuyubo.qs.service.TimeSlotService;
@@ -97,6 +94,13 @@ public class SiteController {
                         .replace("]",""));
         map.put("days","3");
         int rows = siteService.addSite(map);
+        return R.ok().put("rows",rows);
+    }
+
+    @PostMapping("/deleteSite")
+    @Operation(summary = "删除核酸站点")
+    public R deleteSite(@Valid @RequestBody DeleteForm form){
+        int rows = siteService.deleteSite(form.getId());
         return R.ok().put("rows",rows);
     }
 }

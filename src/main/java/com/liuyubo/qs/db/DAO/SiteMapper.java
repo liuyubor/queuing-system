@@ -28,6 +28,8 @@ public interface SiteMapper {
     ArrayList<HashMap> allSites(HashMap param);
 
     Integer addSite(HashMap map);
+
+    Integer deleteSite(String id);
 }
 
 

@@ -45,6 +45,11 @@ public class ReservationServiceImpl implements ReservationService {
     public ArrayList<HashMap> allReserves(HashMap param) {
         return reservationMapper.allReserves(param);
     }
+
+    @Override
+    public Integer deleteReserve(String id) {
+        return reservationMapper.deleteReserve(id);
+    }
 }
 
 

@@ -33,6 +33,8 @@ public interface UserMapper {
     HashMap loadUserInfo(String openId);
 
     ArrayList<HashMap> allUsers(HashMap param);
+
+    Integer deleteUser(String id);
 }
 
 
