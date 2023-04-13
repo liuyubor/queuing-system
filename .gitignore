@@ -4,6 +4,8 @@ application.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.video/
+*.picture/
 
 ### STS ###
 .apt_generated
