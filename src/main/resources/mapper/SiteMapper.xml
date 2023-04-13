@@ -8,7 +8,6 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="point" column="point" jdbcType="OTHER"/>
             <result property="days" column="days" jdbcType="INTEGER"/>
             <result property="capacity" column="capacity" jdbcType="INTEGER"/>
             <result property="appointmentCount" column="appointment_count" jdbcType="INTEGER"/>
@@ -16,10 +15,15 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,description,
-        point,days,capacity,
+        id,name,description,days,capacity,
         appointment_count,status,time_slot
     </sql>
+    <insert id="addSite">
+        INSERT INTO tb_site
+        (name, description, days, capacity, time_slot)
+        VALUES
+        (#{name}, #{description}, #{days}, #{capacity}, #{timeSlots})
+    </insert>
     <select id="searchAllSite" resultType="HashMap">
         SELECT *
         FROM tb_site s
@@ -29,7 +33,6 @@
         SELECT DISTINCT s.id,
         s.name,
         s.description,
-        s.point,
         s.appointment_count AS count,
         s.capacity,
         s.days
@@ -37,22 +40,15 @@
         WHERE s.status='可预约'
         LIMIT #{start}, #{size}
     </select>
-    <insert id="insert"></insert>
-    <update id="update"></update>
     <update id="updateSiteCount">
         UPDATE tb_site
         SET appointment_count = appointment_count + 1
         WHERE id = #{id}
     </update>
-    <delete id="deleteSiteByIds"></delete>
-    <select id="searchSiteCount" resultType="java.lang.Long">
-
-    </select>
     <select id="searchSiteInfoById" resultType="HashMap">
         SELECT s.id,
         s.name,
         s.description,
-        s.point,
         s.appointment_count AS count,
         s.capacity,
         s.days,
@@ -65,7 +61,6 @@
         SELECT DISTINCT s.id,
                         s.name,
                         s.description,
-                        s.point,
                         s.appointment_count AS count,
                         s.capacity,
                         s.days

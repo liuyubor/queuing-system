@@ -1,7 +1,5 @@
 package com.liuyubo.qs.service;
 
-import com.liuyubo.qs.db.POJO.Site;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,14 +14,6 @@ public interface SiteService {
 
     ArrayList<HashMap> searchAllSite();
 
-    Integer insert(Site site);
-
-    Integer update(Site site);
-
-    Integer deleteSiteByIds(Integer[] ids);
-
-    Long searchSiteCount(HashMap param);
-
     HashMap searchSiteInfoById(Integer id);
 
     Integer updateSiteCount(Integer id);
@@ -31,4 +21,6 @@ public interface SiteService {
     String searchDequeueCountById(Integer id);
 
     ArrayList<HashMap> allSites(HashMap param);
+
+    Integer addSite(HashMap map);
 }

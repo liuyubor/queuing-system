@@ -1,6 +1,5 @@
 package com.liuyubo.qs.db.DAO;
 
-import com.liuyubo.qs.db.POJO.Site;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -22,19 +21,13 @@ public interface SiteMapper {
 
     ArrayList<HashMap> searchSiteByPage(HashMap param);
 
-    Integer insert(Site site);
-
-    Integer update(Site site);
-
-    Integer deleteSiteByIds(Integer[] ids);
-
-    Long searchSiteCount(HashMap param);
-
     HashMap searchSiteInfoById(Integer id);
 
     Integer updateSiteCount(Integer id);
 
     ArrayList<HashMap> allSites(HashMap param);
+
+    Integer addSite(HashMap map);
 }
 
 

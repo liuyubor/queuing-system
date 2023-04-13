@@ -31,4 +31,8 @@
         FROM tb_time_slot t
         WHERE t.time_slot=#{time}
     </select>
+    <select id="getTimeSlots" resultType="HashMap">
+        SELECT t.id, t.time_slot AS timeSlot
+        FROM tb_time_slot t
+    </select>
 </mapper>

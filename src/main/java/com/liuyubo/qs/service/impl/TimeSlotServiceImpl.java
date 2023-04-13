@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
 * @author kdrsi
@@ -37,6 +38,11 @@ public class TimeSlotServiceImpl implements TimeSlotService {
     @Override
     public Integer searchTimeIdByTime(String time) {
         return timeMapper.searchTimeIdByTime(time);
+    }
+
+    @Override
+    public ArrayList<HashMap> getTimeSlots() {
+        return timeMapper.getTimeSlots();
     }
 }
 

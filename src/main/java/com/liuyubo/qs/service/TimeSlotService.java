@@ -1,6 +1,7 @@
 package com.liuyubo.qs.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * @author kdrsi
@@ -12,4 +13,6 @@ public interface TimeSlotService {
     ArrayList<String> searchTimeById(Integer id);
 
     Integer searchTimeIdByTime(String time);
+
+    ArrayList<HashMap> getTimeSlots();
 }

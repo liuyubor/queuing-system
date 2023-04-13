@@ -2,7 +2,6 @@ package com.liuyubo.qs.service.impl;
 
 import com.liuyubo.qs.bodytrack.BodyTrack;
 import com.liuyubo.qs.db.DAO.SiteMapper;
-import com.liuyubo.qs.db.POJO.Site;
 import com.liuyubo.qs.service.SiteService;
 import com.liuyubo.qs.utils.RandomV;
 import lombok.SneakyThrows;
@@ -39,26 +38,6 @@ public class SiteServiceImpl implements SiteService {
     }
 
     @Override
-    public Integer insert(Site site) {
-        return siteMapper.insert(site);
-    }
-
-    @Override
-    public Integer update(Site site) {
-        return siteMapper.update(site);
-    }
-
-    @Override
-    public Integer deleteSiteByIds(Integer[] ids) {
-        return siteMapper.deleteSiteByIds(ids);
-    }
-
-    @Override
-    public Long searchSiteCount(HashMap param) {
-        return siteMapper.searchSiteCount(param);
-    }
-
-    @Override
     public HashMap searchSiteInfoById(Integer id) {
         return siteMapper.searchSiteInfoById(id);
     }
@@ -82,6 +61,11 @@ public class SiteServiceImpl implements SiteService {
     @Override
     public ArrayList<HashMap> allSites(HashMap param) {
         return siteMapper.allSites(param);
+    }
+
+    @Override
+    public Integer addSite(HashMap map) {
+        return siteMapper.addSite(map);
     }
 
 

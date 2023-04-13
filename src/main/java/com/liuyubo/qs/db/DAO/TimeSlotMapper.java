@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * @author kdrsi
@@ -20,6 +21,8 @@ public interface TimeSlotMapper{
     String searchTimeSlotById(Integer id);
 
     Integer searchTimeIdByTime(String time);
+
+    ArrayList<HashMap> getTimeSlots();
 }
 
 

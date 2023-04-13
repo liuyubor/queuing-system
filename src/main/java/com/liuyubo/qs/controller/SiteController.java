@@ -1,7 +1,10 @@
 package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.liuyubo.qs.controller.form.*;
+import com.liuyubo.qs.controller.form.AddSiteForm;
+import com.liuyubo.qs.controller.form.SearchByPageForm;
+import com.liuyubo.qs.controller.form.SearchSiteInfoByIdForm;
+import com.liuyubo.qs.controller.form.SearchTimeByIdForm;
 import com.liuyubo.qs.service.ReservationService;
 import com.liuyubo.qs.service.SiteService;
 import com.liuyubo.qs.service.TimeSlotService;
@@ -82,5 +85,18 @@ public class SiteController {
         param.put("start",start);
         ArrayList<HashMap> sites = siteService.allSites(param);
         return R.ok().put("sites",sites);
+    }
+
+    @PostMapping("/addSite")
+    @Operation(summary = "添加核酸站点")
+    public R addSite(@Valid @RequestBody AddSiteForm form){
+        HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
+        map.put("timeSlots",
+                form.getTimeSlots().toString()
+                        .replace("[","")
+                        .replace("]",""));
+        map.put("days","3");
+        int rows = siteService.addSite(map);
+        return R.ok().put("rows",rows);
     }
 }
