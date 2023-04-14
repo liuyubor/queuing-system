@@ -31,7 +31,6 @@ public class MonitorController {
     @Operation(description = "增加监控")
     public R insert(@Valid @RequestBody InsertMonitorForm form) {
         HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
-        //TODO
         monitorService.insert(map);
         return R.ok();
     }
@@ -39,7 +38,6 @@ public class MonitorController {
     @GetMapping("/selectAll")
     @Operation(description = "查询所有监控")
     public R deleteByIds() {
-        //TODO
         ArrayList<HashMap> monitors = monitorService.searchAllMonitor();
         return R.ok().put("monitors",monitors);
     }
@@ -48,7 +46,6 @@ public class MonitorController {
     @Operation(description = "修改监控")
     public R deleteByIds(@Valid @RequestBody UpdateMonitorForm form) {
         HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
-        //TODO
         monitorService.update(map);
         return R.ok();
     }
@@ -57,7 +54,6 @@ public class MonitorController {
     @Operation(description = "删除监控")
     public R deleteByIds(@Valid @RequestBody DeleteMonitorByIdsForm form) {
         HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
-        //TODO
         monitorService.deleteByIds(map);
         return R.ok();
     }
@@ -66,7 +62,6 @@ public class MonitorController {
     @Operation(description = "获取监控人数")
     public R count(@Valid @RequestBody CountForm form) {
         HashMap map = JSONUtil.parse(form).toBean(HashMap.class);
-        //TODO
         return R.ok();
     }
 
