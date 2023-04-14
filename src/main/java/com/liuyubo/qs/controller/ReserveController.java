@@ -1,10 +1,7 @@
 package com.liuyubo.qs.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.liuyubo.qs.controller.form.DeleteForm;
-import com.liuyubo.qs.controller.form.ReserveForm;
-import com.liuyubo.qs.controller.form.SearchByPageForm;
-import com.liuyubo.qs.controller.form.UpdateReserveForm;
+import com.liuyubo.qs.controller.form.*;
 import com.liuyubo.qs.service.ReservationService;
 import com.liuyubo.qs.service.SiteService;
 import com.liuyubo.qs.service.TimeSlotService;
@@ -53,6 +50,13 @@ public class ReserveController {
         int rows1 = siteService.updateSiteCount(Integer.valueOf(form.getSiteId()));
         int rows2 = reserveService.insert(map);
         return R.ok().put("updateSiteCount",rows1).put("rows",rows2);
+    }
+
+    @PostMapping("/selectReserveByUserId")
+    @Operation(summary = "根据用户id查询预约记录")
+    public R selectReserveByUserId(@Valid @RequestBody SelectReserveByUserIdForm form){
+        HashMap reserves = reserveService.selectReserveByUserId(form.getUserId());
+        return R.ok().put("reserves",reserves);
     }
 
     @PostMapping("/allreserves")

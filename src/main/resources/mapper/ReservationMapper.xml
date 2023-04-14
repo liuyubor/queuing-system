@@ -43,9 +43,10 @@
         where id = #{id}
     </delete>
     <select id="selectTimeConflict" parameterType="HashMap" resultType="Integer">
-        select count(*)
-        from tb_reservation
-        where status = #{status} and user = #{userId}
+        SELECT count(t.id)
+        FROM tb_reservation t
+        WHERE t.user = #{userId} and
+              TO_DAYS(t.date) = TO_DAYS(NOW())
     </select>
     <select id="selectAllReserve" resultType="HashMap">
         select tb_reservation.id as id,
